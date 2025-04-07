@@ -1,7 +1,7 @@
 "use client";
 //Extensions
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { toast } from "react-toastify";
 import Link from "next/link";
 //Component
@@ -39,6 +39,7 @@ export default function All() {
   }, [brand]);
 
   return (
+    <Suspense fallback={<div>Chargement...</div>}>
     <div className="bg-white w-full min-h-screen">
       {loading ? (
         <div className="w-full min-h-screen h-full flex items-center justify-center">
@@ -70,5 +71,6 @@ export default function All() {
       )}
       <Footer />
     </div>
+    </Suspense>
   );
 }
