@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { BsPatchExclamationFill } from "react-icons/bs";
 
-export default function typeVehicle({ onSelect, defaultType }) {
+export default function TypeVehicle({ onSelect, defaultType }) {
   const [selected, setSelected] = useState(defaultType || false);
 
   useEffect(() => {
