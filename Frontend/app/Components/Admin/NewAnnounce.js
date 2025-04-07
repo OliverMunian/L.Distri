@@ -246,7 +246,7 @@ export default function NewAnnounce({
       //Images dans le preview :
       const imagePreviews = initialData.images?.map((imgPath) => ({
         file: null,
-        preview: `${process.env.NEXT_PUBLIC_LOCALHOST}/${imgPath}`,
+        preview: `${process.env.NEXT_PUBLIC_API_URL}/${imgPath}`,
         uploaded: true, // pour savoir que ce n’est pas une nouvelle image
       }));
       setImages(imagePreviews);
@@ -393,8 +393,8 @@ export default function NewAnnounce({
     });
     const isEditing = Boolean(initialData?._id);
     const endpoint = isEditing
-      ? `${process.env.NEXT_PUBLIC_LOCALHOST}/announces/modify/${initialData._id}`
-      : `${process.env.NEXT_PUBLIC_LOCALHOST}/announces/publish`;
+      ? `${process.env.NEXT_PUBLIC_API_URL}/announces/modify/${initialData._id}`
+      : `${process.env.NEXT_PUBLIC_API_URL}/announces/publish`;
 
     const method = isEditing ? "PUT" : "POST";
 

@@ -34,7 +34,7 @@ export default function DetailsPageClient({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/announces/${id}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/announces/${id}`);
         if (!res.ok) throw new Error("Erreur lors du fetch");
         const data = await res.json();
         setItem(data.data);

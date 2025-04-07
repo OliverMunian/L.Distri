@@ -13,7 +13,7 @@ export default function CarouselTruck({
   design,
   arrows = false,
 }) {
-  const backendUrl = process.env.NEXT_PUBLIC_LOCALHOST;
+  const backendUrl = process.env.NEXT_PUBLIC_API_URL;
   const displayedImages = limit ? images.slice(0, limit) : images;
 
   return (

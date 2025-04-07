@@ -41,7 +41,7 @@ export default function DetailsPage({ params }) {
 
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/announces/${id}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/announces/${id}`);
         if (!res.ok) throw new Error("Erreur lors du fetch");
         const data = await res.json();
         setItem(data.data);
@@ -75,7 +75,7 @@ export default function DetailsPage({ params }) {
     else {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_LOCALHOST}/announces/remove/${params}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/announces/remove/${params}`,
           {
             method: "DELETE",
             headers: {
@@ -453,7 +453,6 @@ export default function DetailsPage({ params }) {
     },
   ];
 
-
   const dimensionsDisplay = dimensions.map((dimension, i) => {
     return (
       <div key={i} className="flex items-center justify-between">
@@ -503,7 +502,10 @@ export default function DetailsPage({ params }) {
           >
             Supprimer
           </button>
-          <button className="bg-orange-400 text-white px-3 py-1 rounded-md text-sm font-inter  hover:bg-orange-700 hover:cursor-pointer" onClick={()=>handleEdit()}>
+          <button
+            className="bg-orange-400 text-white px-3 py-1 rounded-md text-sm font-inter  hover:bg-orange-700 hover:cursor-pointer"
+            onClick={() => handleEdit()}
+          >
             Modifier
           </button>
         </div>

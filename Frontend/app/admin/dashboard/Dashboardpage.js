@@ -46,7 +46,7 @@ export default function AdminDashboard() {
   const fetchAnnounces = async () => {
     setLoadingAnnounces(true);
     try {
-      const res = await fetch("http://localhost:4000/announces");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/announces`);
       const data = await res.json();
       setAnnounces(data.data);
       setLoadingAnnounces(false);
@@ -89,7 +89,7 @@ export default function AdminDashboard() {
     );
     if (!isConfirmed) return;
 
-    const res = await fetch(`http://localhost:4000/announces/remove/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/announces/remove/${id}`, {
       method: "DELETE",
     });
 
