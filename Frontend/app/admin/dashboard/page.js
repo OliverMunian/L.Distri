@@ -1,6 +1,6 @@
 "use client";
 //Extensions
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useSearchParams } from "next/navigation";
@@ -225,78 +225,22 @@ export default function AdminDashboard() {
   });
 
   return (
-    <div className="w-full h-full min-h-screen bg-[#b6b6b6] p-10 max-lg:p-4">
-      <div className="w-full flex flex-col items-center justify-between border-b-zinc-300 border-b-[0.75px] mb-5 py-4 max-lg:flex-col">
-        <div className="w-full flex justify-between">
-          <div className="flex flex-col">
-            <h1 className="text-2xl font-bold mb-1 text-[#060b1f]">
-              Panneau d'administration
-            </h1>
-            <Link href="/">
-              <h4 className="text-md font-medium mb-3 text-indigo-600 hover:underline hover:cursor-pointer">
-                Retournez sur la page d'accueil
-              </h4>
-            </Link>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <button
-              className="bg-indigo-600 p-4 rounded-xl hover:bg-indigo-800 mx-1"
-              onClick={() => setNewAnnounce(true)}
-            >
-              <h1 className="text-lg font-inter font-bold text-white">
-                Nouvelle annonce
+    <Suspense fallback={<div>Chargement...</div>}>
+      <div className="w-full h-full min-h-screen bg-[#b6b6b6] p-10 max-lg:p-4">
+        <div className="w-full flex flex-col items-center justify-between border-b-zinc-300 border-b-[0.75px] mb-5 py-4 max-lg:flex-col">
+          <div className="w-full flex justify-between">
+            <div className="flex flex-col">
+              <h1 className="text-2xl font-bold mb-1 text-[#060b1f]">
+                Panneau d'administration
               </h1>
-            </button>
-            <button
-              className="bg-red-600 p-4 rounded-xl hover:bg-red-800 mx-1"
-              onClick={() => disconnect()}
-            >
-              <h1 className="text-lg font-inter font-bold text-white">
-                Deconnexion
-              </h1>
-            </button>
-          </div>
-        </div>
-
-        <div className="w-full mt-6 flex">
-          <input
-            type="text"
-            placeholder="Rechercher par marque, modèle ou N° de série..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full md:w-1/3 px-4 py-2 border border-white rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-        </div>
-      </div>
-
-      {newAnnounce ? (
-        <Form
-          onClose={() => {
-            setNewAnnounce(false);
-            setEditingAnnounce(null); // reset après fermeture
-          }}
-          onSuccess={fetchAnnounces}
-          initialData={editingAnnounce}
-        />
-      ) : (
-        <div className="w-full flex items-center justify-between b">
-          {loadingAnnounces ? (
-            <div className="w-full flex justify-center items-center">
-              <h1 className="text-[#060b1f] font-inter font-bold text-2xl">
-                Chargement des annonces...
-              </h1>
+              <Link href="/">
+                <h4 className="text-md font-medium mb-3 text-indigo-600 hover:underline hover:cursor-pointer">
+                  Retournez sur la page d'accueil
+                </h4>
+              </Link>
             </div>
-          ) : announcesDisplay.length > 0 ? (
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {announcesDisplay}
-            </div>
-          ) : (
-            <div className="w-full flex flex-col items-center justify-center">
-              <h1 className="text-[#060b1f] font-inter font-bold text-2xl">
-                Aucune annonce n'est en ligne pour le moment...
-              </h1>
-              <h4> Cliquez sur le bouton pour publier une nouvelle annonce </h4>
+
+            <div className="flex items-center justify-between">
               <button
                 className="bg-indigo-600 p-4 rounded-xl hover:bg-indigo-800 mx-1"
                 onClick={() => setNewAnnounce(true)}
@@ -305,10 +249,71 @@ export default function AdminDashboard() {
                   Nouvelle annonce
                 </h1>
               </button>
+              <button
+                className="bg-red-600 p-4 rounded-xl hover:bg-red-800 mx-1"
+                onClick={() => disconnect()}
+              >
+                <h1 className="text-lg font-inter font-bold text-white">
+                  Deconnexion
+                </h1>
+              </button>
             </div>
-          )}
+          </div>
+
+          <div className="w-full mt-6 flex">
+            <input
+              type="text"
+              placeholder="Rechercher par marque, modèle ou N° de série..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full md:w-1/3 px-4 py-2 border border-white rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
         </div>
-      )}
-    </div>
+
+        {newAnnounce ? (
+          <Form
+            onClose={() => {
+              setNewAnnounce(false);
+              setEditingAnnounce(null); // reset après fermeture
+            }}
+            onSuccess={fetchAnnounces}
+            initialData={editingAnnounce}
+          />
+        ) : (
+          <div className="w-full flex items-center justify-between b">
+            {loadingAnnounces ? (
+              <div className="w-full flex justify-center items-center">
+                <h1 className="text-[#060b1f] font-inter font-bold text-2xl">
+                  Chargement des annonces...
+                </h1>
+              </div>
+            ) : announcesDisplay.length > 0 ? (
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {announcesDisplay}
+              </div>
+            ) : (
+              <div className="w-full flex flex-col items-center justify-center">
+                <h1 className="text-[#060b1f] font-inter font-bold text-2xl">
+                  Aucune annonce n'est en ligne pour le moment...
+                </h1>
+                <h4>
+                  {" "}
+                  Cliquez sur le bouton pour publier une nouvelle annonce{" "}
+                </h4>
+                <button
+                  className="bg-indigo-600 p-4 rounded-xl hover:bg-indigo-800 mx-1"
+                  onClick={() => setNewAnnounce(true)}
+                >
+                  <h1 className="text-lg font-inter font-bold text-white">
+                    Nouvelle annonce
+                  </h1>
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </Suspense>
   );
 }
