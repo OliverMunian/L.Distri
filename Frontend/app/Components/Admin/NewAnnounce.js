@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 //Icons
 import { GoXCircleFill } from "react-icons/go";
 
-export default function newAnnounce({
+export default function NewAnnounce({
   onClose,
   onSuccess,
   initialData = null,
@@ -318,7 +318,6 @@ export default function newAnnounce({
     }
   };
 
-
   //Ajoute de l'image dans l'état images ([])
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
@@ -332,21 +331,21 @@ export default function newAnnounce({
   //Modifie l'état images ([])
   const removeImage = (index) => {
     const imgToRemove = form.images[index];
-  
+
     // Si c'est une image existante (string), on la track
     if (typeof imgToRemove === "string") {
       setDeletedImages((prev) => [...prev, imgToRemove]);
     }
-  
+
     setForm((prev) => ({
       ...prev,
       images: prev.images.filter((_, i) => i !== index),
     }));
-  
+
     if (images[index] && images[index].preview) {
       URL.revokeObjectURL(images[index].preview);
     }
-  
+
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
@@ -382,7 +381,7 @@ export default function newAnnounce({
 
     const sanitized = sanitizeForm({
       ...form,
-      images: form.images.filter((img) => typeof img === "string"), 
+      images: form.images.filter((img) => typeof img === "string"),
     });
 
     formData.append("data", JSON.stringify(sanitized));
