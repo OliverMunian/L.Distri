@@ -1,0 +1,23 @@
+# Node
+node_modules/
+.env
+dist/
+build/
+
+# Next.js
+.next/
+out/
+
+# Logs
+*.log
+
+# System
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+.cache/
+
+# Test output
+coverage/
