@@ -3,34 +3,51 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-
 export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
-      localStorage.setItem("admin-auth", "true");
-      toast.success("Vous êtes connecté !", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        style: {
-            background: "#1E293B",
-            color: "white",
-            borderRadius: "10px",
-            padding: "10px"
+
+    if (password) {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/connect/signin`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password }),
+        });
+
+        const data = await res.json();
+
+        if (res.status === 200 && data.success) {
+          localStorage.setItem("admin-auth", "true");
+          toast.success("Vous êtes connecté !", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            style: {
+              background: "#1E293B",
+              color: "white",
+              borderRadius: "10px",
+              padding: "10px",
+            },
+          });
+          router.push("/admin/dashboard");
+        } else {
+          setError("Mot de passe incorrect");
         }
-    });
-      router.push("/admin/dashboard");
+      } catch (err) {
+        console.error("Erreur lors de la connexion :", err);
+        setError("Une erreur est survenue.");
+      }
     } else {
-      setError("Mot de passe incorrect");
+      setError("Veuillez entrer un mot de passe.");
     }
   };
   return (
