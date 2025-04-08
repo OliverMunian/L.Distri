@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy to VPS via Token
 
 on:
   push:
@@ -9,17 +9,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Deploy via SSH over HTTPS
+      - name: Clone repo with token
         run: |
-          cd /tmp
-          git clone https://$GH_DEPLOY_TOKEN@github.com/OliverMunian/L.Distri.git deploy-temp
-          cd deploy-temp
-          ssh root@TON_IP "rm -rf /opt/sites/ldistri && mkdir -p /opt/sites/ldistri"
-          rsync -avz --delete ./ root@TON_IP:/opt/sites/ldistri
-          ssh root@TON_IP "cd /opt/sites/ldistri && npm install && npm run build && pm2 restart ldistri"
-
+          git clone https://$GH_DEPLOY_TOKEN@github.com/OliverMunian/L.Distri.git app
         env:
           GH_DEPLOY_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
+
+      - name: Deploy to VPS via rsync over HTTPS
+        run: |
+          rsync -avz --delete ./app/ root@${{ secrets.VPS_HOST }}:/opt/sites/ldistri \
+            --rsync-path="mkdir -p /opt/sites/ldistri && rsync"
+          
+          ssh root@${{ secrets.VPS_HOST }} << 'EOF'
+            cd /opt/sites/ldistri
+            npm install
+            npm run build
+            pm2 restart ldistri || pm2 start npx --name ldistri -- next start -p 3000
+            pm2 save
+          EOF
