@@ -1,0 +1,25 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH over HTTPS
+        run: |
+          cd /tmp
+          git clone https://$GH_DEPLOY_TOKEN@github.com/OliverMunian/L.Distri.git deploy-temp
+          cd deploy-temp
+          ssh root@TON_IP "rm -rf /opt/sites/ldistri && mkdir -p /opt/sites/ldistri"
+          rsync -avz --delete ./ root@TON_IP:/opt/sites/ldistri
+          ssh root@TON_IP "cd /opt/sites/ldistri && npm install && npm run build && pm2 restart ldistri"
+
+        env:
+          GH_DEPLOY_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
