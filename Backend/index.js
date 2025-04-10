@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '.env.local' });
 require("./model/connection");
 const express = require("express");
 const multer = require("multer");
