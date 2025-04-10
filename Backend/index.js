@@ -17,9 +17,9 @@ var loginRouter = require('./routes/login')
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/announces', announcesRouter);
-app.use("/api/contact", contactRouter);
-app.use('/api/connect',loginRouter)
+app.use('/announces', announcesRouter);
+app.use("/contact", contactRouter);
+app.use('/connect',loginRouter)
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads"), {
   setHeaders: (res, path) => {
