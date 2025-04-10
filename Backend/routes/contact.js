@@ -6,7 +6,7 @@ const fs = require("fs");
 
 const router = express.Router();
 
-router.post("/send", async (req, res) => {
+router.post("/api/send", async (req, res) => {
   const { firstName, lastName, email, subject, message } = req.body;
 
   if (!firstName || !lastName || !email || !subject || !message) {
