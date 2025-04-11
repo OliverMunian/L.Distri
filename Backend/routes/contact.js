@@ -1,4 +1,6 @@
 require("dotenv").config({ path: ".env.local" });
+console.log(process.env.MAIL_USER);
+console.log(process.env.MAIL_PASS);
 const express = require("express");
 const nodemailer = require("nodemailer");
 const path = require("path");
