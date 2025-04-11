@@ -2,24 +2,25 @@ require("dotenv").config({ path: ".env.local" });
 const express = require("express");
 const nodemailer = require("nodemailer");
 const path = require("path");
-const fs = require("fs");
 
 const router = express.Router();
 
 router.post("/send", async (req, res) => {
   const { firstName, lastName, email, subject, message } = req.body;
 
+  // Vérifie si tous les champs sont remplis
   if (!firstName || !lastName || !email || !subject || !message) {
     return res.status(400).json({ message: "Champs manquants" });
   }
 
+  // Configure le transporteur pour envoyer les emails
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
-    secure: false, 
+    secure: false,  // Utilisation de STARTTLS
     auth: {
-      user: process.env.MAIL_USER, 
-      pass: process.env.MAIL_PASS, 
+      user: process.env.MAIL_USER,  // L'email d'authentification
+      pass: process.env.MAIL_PASS,  // Le mot de passe d'application
     },
   });
 
@@ -29,27 +30,27 @@ router.post("/send", async (req, res) => {
   // ✉️ 1. Envoi vers toi (admin)
   const adminMail = {
     from: `"L'DISTRI - Contact" <${process.env.MAIL_USER}>`,
-    to: process.env.MAIL_USER, // ← vers toi-même
-    subject: `📩 LDISTRI - Nouveau message de ${firstName} ${lastName} – ${subject}`,
+    to: process.env.MAIL_USER,  // Ton email
+    subject: `📩 Nouveau message de ${firstName} ${lastName} – ${subject}`,
     html: `
-        <div style="font-family: Arial, sans-serif;">
+      <div style="font-family: Arial, sans-serif;">
         <img src="cid:${logoCID}" alt="Logo" style="width: 120px; margin-bottom: 20px;" />
-          <h3>Nouveau message reçu depuis le formulaire de contact LDISTRI :</h3>
-          <p><strong>Nom :</strong> ${lastName}</p>
-          <p><strong>Prénom :</strong> ${firstName}</p>
-          <p><strong>Email :</strong> ${email}</p>
-          <p><strong>Sujet :</strong> ${subject}</p>
-          <p><strong>Message :</strong></p>
-          <p style="white-space: pre-line; background: #f5f5f5; padding: 10px; border-radius: 5px;">${message}</p>
-        </div>
-      `,
-      attachments: [
-        {
-          filename: "logo.png",
-          path: logoPath,
-          cid: logoCID,
-        },
-      ],
+        <h3>Nouveau message reçu depuis le formulaire de contact LDISTRI :</h3>
+        <p><strong>Nom :</strong> ${lastName}</p>
+        <p><strong>Prénom :</strong> ${firstName}</p>
+        <p><strong>Email :</strong> ${email}</p>
+        <p><strong>Sujet :</strong> ${subject}</p>
+        <p><strong>Message :</strong></p>
+        <p style="white-space: pre-line; background: #f5f5f5; padding: 10px; border-radius: 5px;">${message}</p>
+      </div>
+    `,
+    attachments: [
+      {
+        filename: "logo.png",
+        path: logoPath,
+        cid: logoCID,  // Identifiant pour la balise cid
+      },
+    ],
   };
 
   // ✉️ 2. Réponse automatique au client
@@ -58,27 +59,26 @@ router.post("/send", async (req, res) => {
     to: email,
     subject: `Merci pour votre message – ${subject}`,
     html: `
-        <div style="font-family: Arial, sans-serif; text-align: center;">
-          <img src="cid:${logoCID}" alt="Logo" style="width: 120px; margin-bottom: 20px;" />
-          <h2>Bonjour ${firstName} ${lastName},</h2>
-          <p>Merci pour votre message. Nous reviendrons vers vous rapidement.</p>
-          <p style="margin-top: 20px;">À bientôt !<br/>L'équipe L'DISTRI</p>
-        </div>
-      `,
+      <div style="font-family: Arial, sans-serif; text-align: center;">
+        <img src="cid:${logoCID}" alt="Logo" style="width: 120px; margin-bottom: 20px;" />
+        <h2>Bonjour ${firstName} ${lastName},</h2>
+        <p>Merci pour votre message. Nous reviendrons vers vous rapidement.</p>
+        <p style="margin-top: 20px;">À bientôt !<br/>L'équipe L'DISTRI</p>
+      </div>
+    `,
     attachments: [
       {
         filename: "logo.png",
         path: logoPath,
-        cid: logoCID,
+        cid: logoCID,  // Identifiant pour la balise cid
       },
     ],
   };
 
   try {
-    // Envoie d'abord vers toi
-    await transporter.sendMail(adminMail);
-    // Ensuite vers le client
-    await transporter.sendMail(clientMail);
+    // Envoi des deux emails
+    await transporter.sendMail(adminMail);  // Vers l'admin
+    await transporter.sendMail(clientMail);  // Vers le client
 
     res.status(200).json({ message: "Emails envoyés avec succès !" });
   } catch (error) {
