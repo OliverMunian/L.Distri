@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: ".env.local" });
 const express = require("express");
 const nodemailer = require("nodemailer");
 const path = require("path");
@@ -14,10 +14,12 @@ router.post("/send", async (req, res) => {
   }
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, 
     auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS,
+      user: process.env.MAIL_USER, 
+      pass: process.env.MAIL_PASS, 
     },
   });
 
@@ -41,13 +43,13 @@ router.post("/send", async (req, res) => {
           <p style="white-space: pre-line; background: #f5f5f5; padding: 10px; border-radius: 5px;">${message}</p>
         </div>
       `,
-    attachments: [
-      {
-        filename: "logo.png",
-        path: logoPath,
-        cid: logoCID,
-      },
-    ],
+      attachments: [
+        {
+          filename: "logo.png",
+          path: logoPath,
+          cid: logoCID,
+        },
+      ],
   };
 
   // ✉️ 2. Réponse automatique au client
