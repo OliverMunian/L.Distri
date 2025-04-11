@@ -15,6 +15,7 @@ var loginRouter = require("./routes/login");
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/announces", announcesRouter);
 app.use("/contact", contactRouter);
