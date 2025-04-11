@@ -18,7 +18,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "LDistrib",
+  title: "L.Distri",
   description: "Vente de camions spécifiques",
 };
 

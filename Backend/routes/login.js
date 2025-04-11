@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 
 
-router.post("/api/signin", (req, res) => {
+router.post("/signin", (req, res) => {
   if (req.body.password === process.env.ADMIN_PASSWORD) {
     return res.status(200).json({ success: true, message: "Vous êtes connecté !" });
   } else {
