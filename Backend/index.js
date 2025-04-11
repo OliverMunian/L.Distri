@@ -21,9 +21,9 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("api/announces", announcesRouter);
-app.use("api/contact", contactRouter);
-app.use("api/connect", loginRouter);
+app.use("/api/announces", announcesRouter);
+app.use("/api/contact", contactRouter);
+app.use("/api/connect", loginRouter);
 
 app.use(
   "/uploads",
