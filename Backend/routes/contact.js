@@ -14,15 +14,14 @@ router.post("/send", async (req, res) => {
   }
 
   const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  },
-});
-
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, 
+    auth: {
+      user: process.env.MAIL_USER, 
+      pass: process.env.MAIL_PASS, 
+    },
+  });
 
   const logoPath = path.join(__dirname, "../public/logo.png");
   const logoCID = "logo@ldistri";
