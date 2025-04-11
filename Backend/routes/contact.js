@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 require("dotenv").config({ path: ".env.local" });
-console.log(process.env.MAIL_USER);
-console.log(process.env.MAIL_PASS);
-=======
-require("dotenv").config();
->>>>>>> 9f84801f37964edd94d07073f4bc842e6e154967
 const express = require("express");
 const nodemailer = require("nodemailer");
 const path = require("path");
@@ -20,12 +14,15 @@ router.post("/send", async (req, res) => {
   }
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS,
-    },
-  });
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS,
+  },
+});
+
 
   const logoPath = path.join(__dirname, "../public/logo.png");
   const logoCID = "logo@ldistri";
