@@ -1,4 +1,4 @@
-require("dotenv").config({ path: ".env.local" });
+require("dotenv").config();
 const express = require("express");
 const nodemailer = require("nodemailer");
 const path = require("path");
@@ -41,13 +41,13 @@ router.post("/send", async (req, res) => {
           <p style="white-space: pre-line; background: #f5f5f5; padding: 10px; border-radius: 5px;">${message}</p>
         </div>
       `,
-      attachments: [
-        {
-          filename: "logo.png",
-          path: logoPath,
-          cid: logoCID,
-        },
-      ],
+    attachments: [
+      {
+        filename: "logo.png",
+        path: logoPath,
+        cid: logoCID,
+      },
+    ],
   };
 
   // ✉️ 2. Réponse automatique au client
