@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 require("dotenv").config({ path: ".env.local" });
 console.log(process.env.MAIL_USER);
 console.log(process.env.MAIL_PASS);
+=======
+require("dotenv").config();
+>>>>>>> 9f84801f37964edd94d07073f4bc842e6e154967
 const express = require("express");
 const nodemailer = require("nodemailer");
 const path = require("path");
@@ -43,13 +47,13 @@ router.post("/send", async (req, res) => {
           <p style="white-space: pre-line; background: #f5f5f5; padding: 10px; border-radius: 5px;">${message}</p>
         </div>
       `,
-      attachments: [
-        {
-          filename: "logo.png",
-          path: logoPath,
-          cid: logoCID,
-        },
-      ],
+    attachments: [
+      {
+        filename: "logo.png",
+        path: logoPath,
+        cid: logoCID,
+      },
+    ],
   };
 
   // ✉️ 2. Réponse automatique au client
