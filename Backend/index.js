@@ -13,7 +13,11 @@ var announcesRouter = require("./routes/announce");
 var contactRouter = require("./routes/contact");
 var loginRouter = require("./routes/login");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://www.ldistri.fr", // Permet les requêtes de ce domaine
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -34,6 +38,6 @@ app.use(
   })
 );
 
-app.listen(PORT,'0.0.0.0', () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`✅ Serveur lancé sur http://localhost:${PORT}`);
 });
