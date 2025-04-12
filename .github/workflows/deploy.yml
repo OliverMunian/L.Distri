@@ -1,4 +1,4 @@
-name: Deploy Frontend to Hetzner VPS
+name: Deploy Full Stack to Hetzner VPS
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4 # Utilise une version récente
+      uses: actions/checkout@v4
 
     - name: Setup SSH Key and Deploy
       env:
@@ -36,26 +36,28 @@ jobs:
           echo "INFO: Checking out branch $PROJECT_BRANCH..."
           git checkout $PROJECT_BRANCH || exit 1
 
-          echo "INFO: Pulling latest changes from origin/$PROJECT_BRANCH..."
+          echo "INFO: Pulling latest code from origin/$PROJECT_BRANCH..."
           git fetch origin
-          git reset --hard origin/$PROJECT_BRANCH # Force la mise à jour
+          git reset --hard origin/$PROJECT_BRANCH # Force la mise à jour (écrase les fichiers locaux)
 
-          echo "INFO: Changing directory to Frontend..."
-          cd Frontend || exit 1 # <-- VA DANS LE SOUS-DOSSIER !
-
-          echo "INFO: Installing/updating Node.js dependencies..."
-          # Assure-toi que npm est dans le PATH de root pour SSH non interactif
+          echo "INFO: Installing/updating Frontend dependencies..."
+          cd Frontend || exit 1
           npm install
-
-          echo "INFO: Building Next.js application for production..."
+          echo "INFO: Building Frontend application..."
           npm run build
+          cd .. # Retourne à la racine du projet
 
-          echo "INFO: Restarting application with PM2..."
-          # pm2 restart cible le nom, pas besoin de chemin ici
-          # Le fallback pm2 start est exécuté DEPUIS le dossier Frontend
-          pm2 restart mon-site-nextjs || pm2 start npm --name "mon-site-nextjs" -- start
+          echo "INFO: Installing/updating Backend dependencies..."
+          cd Backend || exit 1
+          npm install
+          cd .. # Retourne à la racine du projet
 
-          echo "SUCCESS: Frontend deployment to $VPS_HOST finished!"
+          echo "INFO: Restarting applications with PM2..."
+          # Redémarre les deux processus par leur nom
+          pm2 restart ldistri-backend
+          pm2 restart mon-site-nextjs
+
+          echo "SUCCESS: Full stack deployment to $VPS_HOST finished!"
           # ---- Fin des commandes sur le VPS ----
         EOF
 
