@@ -1,0 +1,66 @@
+name: Deploy Full Stack to Hetzner VPS
+
+on:
+  push:
+    branches:
+      - main # <-- CHANGEMENT ICI ! Écoute directement sur la branche 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup SSH Key and Deploy
+      env:
+        # Les secrets sont toujours nécessaires pour la connexion et les commandes
+        SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+        VPS_HOST: ${{ secrets.VPS_HOST }}
+        VPS_USER: ${{ secrets.VPS_USER }}
+        PROJECT_PATH: ${{ secrets.PROJECT_PATH }} # /var/www/ldistri/L.Distri
+        PROJECT_BRANCH: ${{ secrets.PROJECT_BRANCH || 'main' }} # On garde ça au cas où le script s'en sert
+      run: |
+        echo "INFO: Setting up SSH connection..."
+        mkdir -p ~/.ssh/
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts
+
+        echo "INFO: Connecting to VPS via SSH and executing deployment commands..."
+        ssh -i ~/.ssh/deploy_key $VPS_USER@$VPS_HOST << EOF
+          # ---- Commandes exécutées sur le VPS ----
+          echo "INFO: Changing directory to base project path: $PROJECT_PATH"
+          cd $PROJECT_PATH || exit 1 # Va dans /var/www/ldistri/L.Distri
+
+          # Utilise la branche définie dans l'environnement pour le checkout/pull
+          echo "INFO: Checking out branch $PROJECT_BRANCH..."
+          git checkout $PROJECT_BRANCH || exit 1
+
+          echo "INFO: Pulling latest code from origin/$PROJECT_BRANCH..."
+          git fetch origin
+          git reset --hard origin/$PROJECT_BRANCH # Force la mise à jour (écrase les fichiers locaux)
+
+          echo "INFO: Installing/updating Frontend dependencies..."
+          cd Frontend || exit 1
+          npm install
+          echo "INFO: Building Frontend application..."
+          npm run build
+          cd .. # Retourne à la racine du projet
+
+          echo "INFO: Installing/updating Backend dependencies..."
+          cd Backend || exit 1
+          npm install
+          cd .. # Retourne à la racine du projet
+
+          echo "INFO: Restarting applications with PM2..."
+          # Redémarre les deux processus par leur nom
+          pm2 restart ldistri-backend
+          pm2 restart mon-site-nextjs
+
+          echo "SUCCESS: Full stack deployment to $VPS_HOST finished!"
+          # ---- Fin des commandes sur le VPS ----
+        EOF
+
+        echo "INFO: SSH deployment script finished."
