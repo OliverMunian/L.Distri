@@ -10,13 +10,13 @@ process.on('unhandledRejection', (reason, promise) => {
   process.exit(1);
 });
 
-require("dotenv").config({ path: ".env.local" });
+// require("dotenv").config({ path: ".env.local" });
 // require("./model/connection");
 const express = require("express");
-const multer = require("multer");
-const cors = require("cors");
-const path = require("path");
-const fs = require("fs");
+// const multer = require("multer");
+// const cors = require("cors");
+// const path = require("path");
+// const fs = require("fs");
 
 const app = express();
 const PORT = 4000;
