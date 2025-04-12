@@ -1,3 +1,15 @@
+process.on('uncaughtException', (err) => {
+  console.error('Erreur non gérée !', err);
+  // Gérer l'erreur et potentiellement quitter proprement
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Rejet de promesse non géré !', promise, 'raison:', reason);
+  // Gérer le rejet et potentiellement quitter proprement
+  process.exit(1);
+});
+
 require("dotenv").config({ path: ".env.local" });
 require("./model/connection");
 const express = require("express");
