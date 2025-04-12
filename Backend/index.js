@@ -25,11 +25,11 @@ const PORT = 4000;
 // var contactRouter = require("./routes/contact");
 // var loginRouter = require("./routes/login");
 
-app.use(
-  cors({
-    origin: "https://www.ldistri.fr", // Permet les requêtes de ce domaine
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://www.ldistri.fr", // Permet les requêtes de ce domaine
+//   })
+// );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
