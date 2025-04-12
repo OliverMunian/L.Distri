@@ -49,7 +49,6 @@ export default function Home() {
     { brand: "Volvo", image: Volvo },
   ];
 
-
   const displayLogo = logos.map((item, i) => (
     <div key={i} className="w-20 sm:w-24 md:w-28 lg:w-32 hover:cursor-pointer">
       <Link href={`/all?brand=${item.brand}`}>
@@ -103,6 +102,29 @@ export default function Home() {
               {displayLogo}
             </div>
           </div>
+          <div className="flex flex-col justify-center items-center px-40 py-10 max-xl:px-20 max-lg:px-10">
+            <p className="font-inter font-light text-[#060b1f] text-center text-sm">
+              L.Distri est une entreprise française spécialisée dans la vente de
+              camions et véhicules utilitaires toutes catégories, à destination
+              des professionnels. Implantés à Vannes (56), nous mettons à
+              disposition une large gamme de véhicules neufs et d’occasion,
+              soigneusement sélectionnés et préparés selon les standards les
+              plus exigeants. Notre réseau logistique nous permet d’assurer la
+              livraison sur l’ensemble du territoire national. Réactivité,
+              fiabilité et expertise terrain font de L.Distri un acteur reconnu
+              dans le secteur du véhicule professionnel. Nous accompagnons nos
+              clients dans leur développement avec des solutions sur mesure,
+              allant de la reprise à l’aménagement, jusqu’à la livraison du
+              véhicule prêt à l’emploi.
+              <br />
+              <br />
+            </p>
+            <p className="font-inter font-light text-[#060b1f] text-center text-sm italic">
+              Chez L.Distri, on ne vend pas simplement des camions, on équipe
+              ceux qui avancent.
+            </p>
+          </div>
+
           <Footer />
         </>
       )}

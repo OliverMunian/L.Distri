@@ -227,7 +227,7 @@ export default function AdminDashboard() {
   return (
       <div className="w-full h-full min-h-screen bg-[#b6b6b6] p-10 max-lg:p-4">
         <div className="w-full flex flex-col items-center justify-between border-b-zinc-300 border-b-[0.75px] mb-5 py-4 max-lg:flex-col">
-          <div className="w-full flex justify-between">
+          <div className="w-full flex justify-between max-md:flex-col">
             <div className="flex flex-col">
               <h1 className="text-2xl font-bold mb-1 text-[#060b1f]">
                 Panneau d'administration
@@ -244,7 +244,7 @@ export default function AdminDashboard() {
                 className="bg-indigo-600 p-4 rounded-xl hover:bg-indigo-800 mx-1"
                 onClick={() => setNewAnnounce(true)}
               >
-                <h1 className="text-lg font-inter font-bold text-white">
+                <h1 className="text-lg font-inter font-bold text-white max-sm:text-[10px]">
                   Nouvelle annonce
                 </h1>
               </button>
@@ -252,7 +252,7 @@ export default function AdminDashboard() {
                 className="bg-red-600 p-4 rounded-xl hover:bg-red-800 mx-1"
                 onClick={() => disconnect()}
               >
-                <h1 className="text-lg font-inter font-bold text-white">
+                <h1 className="text-lg font-inter font-bold text-white max-sm:text-[10px]">
                   Deconnexion
                 </h1>
               </button>

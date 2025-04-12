@@ -3,9 +3,14 @@ import Header from "../Components/Header";
 import Footer from "../Components/Footer";
 //Extensions
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 export default function Contact() {
+  const router = useRouter();
+  const [brandVehicule, setBrandVehicule] = useState("");
+  const [modelVehicule, setModelVehicule] = useState("");
+  const [serialNumberVehicule, setSerialNumberVehicule] = useState("");
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,6 +22,30 @@ export default function Contact() {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+  useEffect(() => {
+    if (router.isReady) {
+      // Assure-toi que les paramètres de la route sont bien présents
+      const { brand, model, serialNumber } = router.query;
+      if (brand && model && serialNumber) {
+        setBrandVehicule(brand);
+        setModelVehicule(model);
+        setSerialNumberVehicule(serialNumber);
+        setSubject(`${brand} ${model} - ${serialNumber}`);
+      } else {
+        // Si aucun paramètre n'est présent, tu peux aussi le gérer ici.
+        console.log('Les paramètres brand, model et serialNumber sont manquants.');
+      }
+    }
+  }, [router.isReady, router.query]);
+
+  // Mettre à jour le sujet quand les valeurs de brand, model, serialNumber changent
+  useEffect(() => {
+    if (brandVehicule && modelVehicule && serialNumberVehicule) {
+      setSubject(`${brandVehicule} ${modelVehicule} - ${serialNumberVehicule}`);
+    }
+  }, [brandVehicule, modelVehicule, serialNumberVehicule]);
+
 
   useEffect(() => {
     const hasErrors =

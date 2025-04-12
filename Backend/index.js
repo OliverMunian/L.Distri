@@ -1,4 +1,4 @@
-require("dotenv").config({ path: ".env.local" });
+require('dotenv').config()
 require("./model/connection");
 const express = require("express");
 const multer = require("multer");
@@ -7,7 +7,7 @@ const path = require("path");
 const fs = require("fs");
 
 const app = express();
-const PORT = 4000;
+PORT = process.env.PORT || 5000;
 
 var announcesRouter = require("./routes/announce");
 var contactRouter = require("./routes/contact");
@@ -24,6 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/announces", announcesRouter);
 app.use("/api/contact", contactRouter);
 app.use("/api/connect", loginRouter);
+
+app.use("/announces", announcesRouter);
+app.use("/contact", contactRouter);
+app.use("/connect", loginRouter);
 
 app.use(
   "/uploads",

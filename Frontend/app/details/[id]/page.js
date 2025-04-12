@@ -4,6 +4,7 @@ import { use } from "react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Link from "next/link";
 //Components
 import CarouselTruck from "../../Components/CarouselTruck";
 //Icons
@@ -34,7 +35,9 @@ export default function DetailsPageClient({ params }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/announces/${id}`);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/announces/${id}`
+        );
         if (!res.ok) throw new Error("Erreur lors du fetch");
         const data = await res.json();
         setItem(data.data);
@@ -57,7 +60,7 @@ export default function DetailsPageClient({ params }) {
     );
   if (error) return <p>Erreur : {error}</p>;
 
-  console.log("ligne 61:", item);
+  // console.log("ligne 61:", item);
 
   const details = [
     {
@@ -455,7 +458,8 @@ export default function DetailsPageClient({ params }) {
             <p className="font-inter text-[#060b1f] font-light text-sm">
               {item.informations.description}
             </p>
-            <button className="w-[35%] flex items-center justify-center rounded-lg p-3 mt-5 bg-slate-200 hover:bg-slate-400 hover:cursor-pointer max-sm:w-[45%]">
+            <button className="w-[35%] flex items-center justify-center rounded-lg p-3 mt-5 bg-slate-200 hover:bg-slate-400 hover:cursor-pointer max-sm:w-[45%]"
+             onClick={() => alert('Indisponible pour le moment')}>
               <SlBookOpen className="text-[#060b1f] mr-2" />
               <h1 className="text-[#060b1f] text-base font-inter font-bold">
                 Brochure PDF
@@ -496,9 +500,21 @@ export default function DetailsPageClient({ params }) {
             {formatPrice(item.informations.price)}€
           </h1>
           <button className="bg-indigo-600 w-[75%] p-2 rounded-lg mt-5 flex items-center justify-center hover:bg-indigo-800 hover:cursor-pointer">
-            <h1 className="font-inter font-normal text-white text-lg">
-              Nous contacter
-            </h1>
+            <Link
+              href={{
+                pathname: "/contact", // La page vers laquelle on redirige
+                query: {
+                  brand: item.informations.brand,
+                  model: item.informations.model,
+                  serialNumber: item.informations.serialNumber,
+                },
+              }}
+              passHref
+            >
+              <h1 className="font-inter font-normal text-white text-lg">
+                Nous contacter
+              </h1>
+            </Link>
           </button>
 
           {/*ONGLET INFORMATIONS*/}
