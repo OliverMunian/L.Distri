@@ -30,8 +30,8 @@ const PORT = 4000;
 //     origin: "https://www.ldistri.fr", // Permet les requêtes de ce domaine
 //   })
 // );
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 // app.use("/api/announces", announcesRouter);
 // app.use("/api/contact", contactRouter);
