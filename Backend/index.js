@@ -37,18 +37,18 @@ app.use(express.urlencoded({ extended: true }));
 // app.use("/api/contact", contactRouter);
 // app.use("/api/connect", loginRouter);
 
-app.use(
-  "/uploads",
-  express.static(path.join(__dirname, "uploads"), {
-    setHeaders: (res, path) => {
-      if (path.match(/\.(jpg|jpeg|png|webp|gif|svg)$/)) {
-        res.set("Cache-Control", "public, max-age=2592000"); //30jours
-      } else {
-        res.set("Cache-Control", "public, max-age=86400"); //1jour
-      }
-    },
-  })
-);
+// app.use(
+//   "/uploads",
+//   express.static(path.join(__dirname, "uploads"), {
+//     setHeaders: (res, path) => {
+//       if (path.match(/\.(jpg|jpeg|png|webp|gif|svg)$/)) {
+//         res.set("Cache-Control", "public, max-age=2592000"); //30jours
+//       } else {
+//         res.set("Cache-Control", "public, max-age=86400"); //1jour
+//       }
+//     },
+//   })
+// );
 
 console.log("Avant app.listen()");
 app.listen(PORT, "0.0.0.0", () => {
