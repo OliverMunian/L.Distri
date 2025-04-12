@@ -1,0 +1,62 @@
+name: Deploy Frontend to Hetzner VPS
+
+on:
+  push:
+    branches:
+      - ${{ secrets.PROJECT_BRANCH || 'main' }} # Utilise le secret ou 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4 # Utilise une version récente
+
+    - name: Setup SSH Key and Deploy
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+        VPS_HOST: ${{ secrets.VPS_HOST }}
+        VPS_USER: ${{ secrets.VPS_USER }}
+        PROJECT_PATH: ${{ secrets.PROJECT_PATH }} # /var/www/ldistri/L.Distri
+        PROJECT_BRANCH: ${{ secrets.PROJECT_BRANCH || 'main' }}
+      run: |
+        echo "INFO: Setting up SSH connection..."
+        mkdir -p ~/.ssh/
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts
+
+        echo "INFO: Connecting to VPS via SSH and executing deployment commands..."
+        ssh -i ~/.ssh/deploy_key $VPS_USER@$VPS_HOST << EOF
+          # ---- Commandes exécutées sur le VPS ----
+          echo "INFO: Changing directory to base project path: $PROJECT_PATH"
+          cd $PROJECT_PATH || exit 1 # Va dans /var/www/ldistri/L.Distri
+
+          echo "INFO: Checking out branch $PROJECT_BRANCH..."
+          git checkout $PROJECT_BRANCH || exit 1
+
+          echo "INFO: Pulling latest changes from origin/$PROJECT_BRANCH..."
+          git fetch origin
+          git reset --hard origin/$PROJECT_BRANCH # Force la mise à jour
+
+          echo "INFO: Changing directory to Frontend..."
+          cd Frontend || exit 1 # <-- VA DANS LE SOUS-DOSSIER !
+
+          echo "INFO: Installing/updating Node.js dependencies..."
+          # Assure-toi que npm est dans le PATH de root pour SSH non interactif
+          npm install
+
+          echo "INFO: Building Next.js application for production..."
+          npm run build
+
+          echo "INFO: Restarting application with PM2..."
+          # pm2 restart cible le nom, pas besoin de chemin ici
+          # Le fallback pm2 start est exécuté DEPUIS le dossier Frontend
+          pm2 restart mon-site-nextjs || pm2 start npm --name "mon-site-nextjs" -- start
+
+          echo "SUCCESS: Frontend deployment to $VPS_HOST finished!"
+          # ---- Fin des commandes sur le VPS ----
+        EOF
+
+        echo "INFO: SSH deployment script finished."
