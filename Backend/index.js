@@ -11,7 +11,7 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 require("dotenv").config({ path: ".env.local" });
-require("./model/connection");
+// require("./model/connection");
 const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
