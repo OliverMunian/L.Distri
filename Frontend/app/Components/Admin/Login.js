@@ -38,7 +38,7 @@ export default function Login() {
               padding: "10px",
             },
           });
-          router.push("/admin/dashboard");
+          router.push("/vio/dashboard");
         } else {
           setError("Mot de passe incorrect");
         }

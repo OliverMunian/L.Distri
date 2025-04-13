@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 //Icons
 import { FaGasPump } from "react-icons/fa6";
 import { GiSpeedometer } from "react-icons/gi";
 import { TbManualGearbox } from "react-icons/tb";
 import { LuArrowUpRight } from "react-icons/lu";
+//Images
+import ParisAir from '../../../public/ParisAir_logo.png'
 //Components
 import Form from "../../Components/Admin/NewAnnounce";
 import CarouselTruck from "@/app/Components/CarouselTruck";
@@ -77,7 +80,7 @@ export default function AdminDashboard() {
         padding: "10px",
       },
     });
-    router.push("/admin");
+    router.push("/vio");
   }
 
   const formatPrice = (value) => new Intl.NumberFormat("fr-FR").format(value);
@@ -225,7 +228,7 @@ export default function AdminDashboard() {
   });
 
   return (
-      <div className="w-full h-full min-h-screen bg-[#b6b6b6] p-10 max-lg:p-4">
+      <div className="w-full h-full min-h-screen bg-[#b6b6b6] p-5 max-lg:p-4">
         <div className="w-full flex flex-col items-center justify-between border-b-zinc-300 border-b-[0.75px] mb-5 py-4 max-lg:flex-col">
           <div className="w-full flex justify-between max-md:flex-col">
             <div className="flex flex-col">
@@ -241,7 +244,7 @@ export default function AdminDashboard() {
 
             <div className="flex items-center justify-between">
               <button
-                className="bg-indigo-600 p-4 rounded-xl hover:bg-indigo-800 mx-1"
+                className="bg-indigo-600 p-4 rounded-xl hover:bg-indigo-800 mx-1 hover:cursor-pointer"
                 onClick={() => setNewAnnounce(true)}
               >
                 <h1 className="text-lg font-inter font-bold text-white max-sm:text-[10px]">
@@ -249,7 +252,7 @@ export default function AdminDashboard() {
                 </h1>
               </button>
               <button
-                className="bg-red-600 p-4 rounded-xl hover:bg-red-800 mx-1"
+                className="bg-red-600 p-4 rounded-xl hover:bg-red-800 mx-1 hover:cursor-pointer"
                 onClick={() => disconnect()}
               >
                 <h1 className="text-lg font-inter font-bold text-white max-sm:text-[10px]">
@@ -265,7 +268,7 @@ export default function AdminDashboard() {
               placeholder="Rechercher par marque, modèle ou N° de série..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full md:w-1/3 px-4 py-2 border border-white rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full md:w-1/3 px-4 py-2 bg-white border border-white rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
         </div>
@@ -293,7 +296,7 @@ export default function AdminDashboard() {
               </div>
             ) : (
               <div className="w-full flex flex-col items-center justify-center">
-                <h1 className="text-[#060b1f] font-inter font-bold text-2xl">
+                <h1 className="text-[#060b1f] font-inter font-bold text-2xl text-center">
                   Aucune annonce n'est en ligne pour le moment...
                 </h1>
                 <h4>
@@ -301,7 +304,7 @@ export default function AdminDashboard() {
                   Cliquez sur le bouton pour publier une nouvelle annonce{" "}
                 </h4>
                 <button
-                  className="bg-indigo-600 p-4 rounded-xl hover:bg-indigo-800 mx-1"
+                  className="bg-indigo-600 p-4 rounded-xl hover:bg-indigo-800 mx-1 hover:cursor-pointer"
                   onClick={() => setNewAnnounce(true)}
                 >
                   <h1 className="text-lg font-inter font-bold text-white">

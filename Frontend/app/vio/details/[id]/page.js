@@ -35,7 +35,7 @@ export default function DetailsPage({ params }) {
     if (!id) return;
     const isAdmin = localStorage.getItem("admin-auth");
     if (isAdmin !== "true") {
-      router.push("/admin/dashboard");
+      router.push("/vio/dashboard");
       return;
     }
 
@@ -107,7 +107,7 @@ export default function DetailsPage({ params }) {
           },
         });
 
-        router.push("/admin/dashboard");
+        router.push("/vio/dashboard");
       } catch (error) {
         console.error("Erreur:", error);
       }

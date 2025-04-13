@@ -46,7 +46,7 @@ export default function All() {
         </div>
       ) : announces.length == 0 && brand ? (
         <div className="flex flex-col">
-          <Header />
+          <Header all={true} />
           <div className="flex flex-col items-center justify-center p-20 w-full">
             <h1 className="text-[#060b1f] text-center">
               Désolé, nous n'avons aucune annonce en ligne pour cette marque de
@@ -63,7 +63,7 @@ export default function All() {
         </div>
       ) : (
         <div className="flex flex-col">
-          <Header />
+          <Header all={true} />
           <TypeVehicle onSelect={setSelected} defaultType={type} />
           <Fleet params={announces} brand={brand} chooseVehicle={selected} />
         </div>

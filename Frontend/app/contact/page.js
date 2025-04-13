@@ -141,6 +141,7 @@ export default function Contact() {
           padding: "10px",
         },
       });
+      setIsSubmitting(false);
     }
   }
 
@@ -169,7 +170,7 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col justify-between">
-      <Header />
+      <Header contact={true}/>
 
       <main className="flex flex-col items-center justify-center px-10 py-16 max-w-3xl mx-auto w-full">
         <h1 className="text-3xl font-bold text-[#060b1f] mb-8">
@@ -278,7 +279,7 @@ export default function Contact() {
             <button
               type="submit"
               disabled={!isFormValid || isSubmitting}
-              className={`px-6 py-2 rounded-lg flex items-center justify-center gap-2 transition ${
+              className={`px-6 py-2 rounded-lg flex items-center justify-center gap-2 transition hover:cursor-pointer ${
                 isFormValid && !isSubmitting
                   ? "bg-indigo-600 hover:bg-indigo-800 text-white"
                   : "bg-gray-400 text-white cursor-not-allowed"

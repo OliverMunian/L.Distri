@@ -27,6 +27,7 @@ import Opel from "../public/Logo/Opel.png";
 import Peugeot from "../public/Logo/Peugeot.png";
 import Renault from "../public/Logo/Renault.png";
 import Volvo from "../public/Logo/Volvo.png";
+import VW from "../public/Logo/VW.png"
 import Logo from "../public/logo(1).png";
 
 export default function Home() {
@@ -47,6 +48,7 @@ export default function Home() {
     { brand: "Peugeot", image: Peugeot },
     { brand: "Renault", image: Renault },
     { brand: "Volvo", image: Volvo },
+    { brand: "Volkswagen", image: VW },
   ];
 
   const displayLogo = logos.map((item, i) => (
@@ -68,41 +70,10 @@ export default function Home() {
       {loading && <Loader onFinish={() => setLoading(false)} />}
       {!loading && (
         <>
-          <Header />
+          <Header/>
           {/* <TypeVehicle /> */}
-          <div className="flex flex-col items-center justify-center px-40 py-10 max-xl:px-20 max-lg:px-10">
-            <div className="w-1/4 max-lg:w-1/3 max-sm:w-1/2 mb-10">
-              <Image src={Logo} alt="Logo_Ldistri" />
-            </div>
-            <h1 className="font-inter font-bold text-2xl text-[#060b1f] text-center">
-              Le partenaire de confiance pour vos véhicules professionnels
-            </h1>
-            <br />
-            <p className="font-inter font-light text-[#060b1f] text-center text-sm">
-              Que vous soyez artisan, entrepreneur ou gestionnaire de flotte,
-              trouvez chez nous le véhicule qui répond parfaitement à vos
-              besoins. Utilitaires robustes, bennes fiables, plateaux
-              polyvalents, remorques & semi-remorques performants, véhicules
-              spéciaux ou encore camions tracteurs prêts à affronter tous les
-              chantiers : nous vous proposons un large choix de véhicules
-              adaptés à toutes les missions. Profitez de solutions sur-mesure,
-              d’un accompagnement personnalisé et de véhicules sélectionnés pour
-              leur qualité et leur fiabilité. Avec nous, roulez l’esprit
-              tranquille, vos projets roulent déjà.
-            </p>
-          </div>
-          <Fleet />
-          <div className="w-full flex flex-col justify-start px-40 py-4 max-xl:px-20 max-lg:px-10 max-sm:px-4">
-            <div className="mb-8">
-              <h1 className="font-inter font-bold text-[#060b1f] text-2xl">
-                Nos marques
-              </h1>
-            </div>
-            <div className="flex flex-wrap gap-x-8 gap-y-10 justify-center items-center">
-              {displayLogo}
-            </div>
-          </div>
-          <div className="flex flex-col justify-center items-center px-40 py-10 max-xl:px-20 max-lg:px-10">
+          <Fleet className='-mt-64'/>
+          <div className="flex flex-col justify-center items-center z-10 px-40 py-10 max-xl:px-20 max-lg:px-10">
             <p className="font-inter font-light text-[#060b1f] text-center text-sm">
               L.Distri est une entreprise française spécialisée dans la vente de
               camions et véhicules utilitaires toutes catégories, à destination
@@ -124,8 +95,19 @@ export default function Home() {
               ceux qui avancent.
             </p>
           </div>
+          <div className="w-full flex flex-col justify-start px-40 py-8 max-xl:px-20 max-lg:px-10 max-sm:px-4 z-10 bg-white">
+            <div className="mb-8">
+              <h1 className="font-inter font-bold text-[#060b1f] text-2xl">
+                Nos marques
+              </h1>
+            </div>
+            <div className="flex flex-wrap gap-x-8 gap-y-10 justify-center items-center">
+              {displayLogo}
+            </div>
+          </div>
 
-          <Footer />
+
+          <Footer className='-mt-10 -z-10' />
         </>
       )}
     </div>

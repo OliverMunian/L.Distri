@@ -496,7 +496,7 @@ export default function NewAnnounce({
             value={form.brand}
             name="brand"
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           >
             <option value="">-- Choisissez un type --</option>
             <option value="Mercedes-Benz">Mercedes-Benz</option>
@@ -523,7 +523,7 @@ export default function NewAnnounce({
             placeholder="Ex:Sprinter,Krafter..."
             value={form.model}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
           {errors.model && <p className="text-red-500">{errors.model}</p>}
         </div>
@@ -535,7 +535,7 @@ export default function NewAnnounce({
             placeholder="N° de série"
             value={form.informations.serialNumber}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm uppercase placeholder:lowercase"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm uppercase placeholder:lowercase"
           />
           {errors["informations.serialNumber"] && (
             <p className="text-red-500">
@@ -554,7 +554,7 @@ export default function NewAnnounce({
             placeholder="Format JJ/MM/AAAA"
             value={form.informations.dateCirculation}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
           {errors["informations.dateCirculation"] && (
             <p className="text-red-500">
@@ -574,7 +574,7 @@ export default function NewAnnounce({
             placeholder="Format AAAA"
             value={form.informations.year}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
           {(errors["informations.year"] ||
             (form.informations.dateCirculation &&
@@ -600,7 +600,7 @@ export default function NewAnnounce({
             placeholder="Indiquer le kilométrage"
             value={form.informations.kms}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
           {errors["informations.kms"] && (
             <p className="text-red-500">{errors["informations.kms"]}</p>
@@ -615,7 +615,7 @@ export default function NewAnnounce({
             placeholder="Indiquer le prix de vente"
             value={form.informations.price}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
           {errors["informations.price"] && (
             <p className="text-red-500">{errors["informations.price"]}</p>
@@ -629,7 +629,7 @@ export default function NewAnnounce({
             value={form.informations.type}
             name="informations.type"
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           >
             <option value="">-- Choisissez un type --</option>
             <option value="Utilitaire">Utilitaire</option>
@@ -651,7 +651,7 @@ export default function NewAnnounce({
             value={form.informations.gearbox}
             name="informations.gearbox"
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           >
             <option value="">-- Choisissez un type --</option>
             <option value="Manuelle">Manuelle</option>
@@ -667,7 +667,7 @@ export default function NewAnnounce({
             value={form.informations.motorization}
             name="informations.motorization"
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           >
             <option value="">-- Choisissez un type --</option>
             <option value="Diesel">Diesel</option>
@@ -692,7 +692,7 @@ export default function NewAnnounce({
             placeholder="Indiquer le taux"
             value={form.informations.co2Emissions}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -704,7 +704,7 @@ export default function NewAnnounce({
             placeholder="Indiquer la classe d'émission"
             value={form.informations.emissionsClass}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -715,7 +715,7 @@ export default function NewAnnounce({
             placeholder="Ex: Camionette, Fourgon..."
             value={form.informations.carBody}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -729,7 +729,7 @@ export default function NewAnnounce({
             placeholder="Indiquer la puissance du vehicule"
             value={form.informations.horsePower}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -741,7 +741,7 @@ export default function NewAnnounce({
             placeholder="Indiquer le nombre de porte"
             value={form.informations.numberDoors}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -753,7 +753,7 @@ export default function NewAnnounce({
             placeholder="Indiquer le nombre de place"
             value={form.informations.places}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -767,7 +767,7 @@ export default function NewAnnounce({
             placeholder="Indiquer poids total autorisé en charge"
             value={form.informations.ptc}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -781,7 +781,7 @@ export default function NewAnnounce({
             placeholder="Indiquer poids total en roulant"
             value={form.informations.ptr}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -793,7 +793,7 @@ export default function NewAnnounce({
             placeholder="Couleur du véhicule"
             value={form.informations.color}
             onChange={handleChange}
-            className="capitalize w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="capitalize w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <h1 className="font-inter text-[#060b1f] text-2xl font-bold ">
@@ -808,7 +808,7 @@ export default function NewAnnounce({
             placeholder="Longueur en mm"
             value={form.informations.dimensions.length || ""}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -820,7 +820,7 @@ export default function NewAnnounce({
             placeholder="Largeur en mm"
             value={form.informations.dimensions.width || ""}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -832,7 +832,7 @@ export default function NewAnnounce({
             placeholder="Largeur en mm"
             value={form.informations.dimensions.height}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -844,7 +844,7 @@ export default function NewAnnounce({
             placeholder="Volume en mm³"
             value={form.informations.dimensions.volume || ""}
             onChange={handleChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <h1 className="font-inter text-[#060b1f] text-2xl font-bold ">
@@ -888,7 +888,7 @@ export default function NewAnnounce({
             placeholder="Veuillez saisir une description pour votre annonce"
             value={form.informations.description}
             onChange={handleChange}
-            className="w-full p-3 whitespace-pre-line rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 whitespace-pre-line rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
         </div>
         <div>
@@ -899,7 +899,7 @@ export default function NewAnnounce({
             accept="image/*"
             multiple
             onChange={handleImageChange}
-            className="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
+            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm"
           />
           <div className="flex flex-wrap gap-4 mt-2">
             {images.map((img, index) => (

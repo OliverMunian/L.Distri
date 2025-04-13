@@ -18,6 +18,7 @@ app.use(
     origin: "https://www.ldistri.fr", // Permet les requêtes de ce domaine
   })
 );
+// app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -25,9 +26,9 @@ app.use("/api/announces", announcesRouter);
 app.use("/api/contact", contactRouter);
 app.use("/api/connect", loginRouter);
 
-app.use("/announces", announcesRouter);
-app.use("/contact", contactRouter);
-app.use("/connect", loginRouter);
+// app.use("/announces", announcesRouter);
+// app.use("/contact", contactRouter);
+// app.use("/connect", loginRouter);
 
 app.use(
   "/uploads",

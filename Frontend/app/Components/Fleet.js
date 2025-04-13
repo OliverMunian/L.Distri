@@ -168,15 +168,15 @@ export default function Fleet({ params, brand, chooseVehicle }) {
   });
 
   return (
-    <div className="flex flex-col  w-full bg-[#fafbfd] px-28 py-12 max-xl:px-20 max-lg:px-10">
+    <div className="flex flex-col w-full bg-[#fafbfd] z-20 px-28 py-6 max-xl:px-20 max-lg:px-10 max-sm:px-5">
       {!params && (
-        <div className="w-full flex justify-between py-10 border-b-zinc-300 border-b-[0.75px]">
-          <h1 className="font-inter font-bold text-lg text-[#060b1f] hover:underline hover:cursor-pointer">
+        <div className="w-full flex justify-between pb-5 border-b-zinc-300 border-b-[0.75px]">
+          <h1 className="font-inter font-bold text-lg text-[#060b1f] hover:underline hover:cursor-pointer max-[460px]:text-[13px]">
             Explorer tous nos vehicules
           </h1>
           <div className="flex items-center">
             <Link href={`/all`}>
-              <h3 className="font-inter font-bold text-base text-[#060b1f] hover:underline hover:cursor-pointer">
+              <h3 className="font-inter font-bold text-base text-[#060b1f] hover:underline hover:cursor-pointer max-sm:text-[10px]">
                 Tout voir
               </h3>
             </Link>
@@ -214,13 +214,13 @@ export default function Fleet({ params, brand, chooseVehicle }) {
           </h1>
 
 
-          <Link href={`/all`} className="flex items-center mt-5">
+          {/* <Link href={`/all`} className="flex items-center mt-5">
             <h1 className="font-inter font-bold text-lg text-[#060b1f] mr-2 hover:underline">
               {" "}
               Tout voir
             </h1>
             <LuArrowUpRight className="text-[#060b1f]" />
-          </Link>
+          </Link> */}
         </div>
       ) : chooseVehicle && filteredAnnounces.length === 0 ? (
         <div className="w-full flex flex-col justify-center items-center mt-10">
