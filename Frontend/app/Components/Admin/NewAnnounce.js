@@ -527,7 +527,7 @@ export default function NewAnnounce({
           />
           {errors.model && <p className="text-red-500">{errors.model}</p>}
         </div>
-        <div>
+        {/* <div>
           <label className="text-[#060b1f] font-inter">Numero de série*</label>
           <input
             type="text"
@@ -542,7 +542,7 @@ export default function NewAnnounce({
               {errors["informations.serialNumber"]}
             </p>
           )}
-        </div>
+        </div> */}
         <div>
           <label className="text-[#060b1f] font-inter">
             Date de mise en circulation*

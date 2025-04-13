@@ -43,7 +43,6 @@ function sanitizeParsed(parsed) {
               wheelBase: Number(parsed.informations.dimensions.wheelBase) || undefined,
           },
           dateCirculation: parsed.informations.dateCirculation || undefined,
-          serialNumber: parsed.informations.serialNumber || undefined,
           carBody: parsed.informations.carBody || undefined,
           type: parsed.informations.type || undefined,
           gearbox: parsed.informations.gearbox || undefined,

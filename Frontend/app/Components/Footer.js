@@ -15,7 +15,7 @@ export default function Footer() {
       <div className="w-full h-[30px] bg-white rounded-b-3xl"></div>
       <div className="w-full flex flex-col bg-[#060b20] px-40 py-5 max-lg:px-20 max-sm:px-4 max-md:py-5">
         <div className="w-full flex flex-col py-5 border-b-[0.75px] border-b-zinc-300">
-          <h1 className="text-lg font-bold font-inter text-white">LDISTRI</h1>
+          <h1 className="text-lg font-bold font-inter text-white">L.DISTRI</h1>
           <p className="text-white font-inter text-xs">
             Chez L.Distri, on ne vend pas simplement des camions, on équipe ceux
             qui avancent.

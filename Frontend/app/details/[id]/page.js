@@ -98,11 +98,11 @@ export default function DetailsPageClient({ params }) {
       value: item.informations.places ?? "N/A",
       icon: <PiSeatbeltFill className="text-[#060b1f] mr-3" />,
     },
-    {
-      label: "N° Série",
-      value: item.informations.serialNumber,
-      icon: <TiSortNumerically className="text-[#060b1f] mr-3" />,
-    },
+    // {
+    //   label: "N° Série",
+    //   value: item.informations.serialNumber,
+    //   icon: <TiSortNumerically className="text-[#060b1f] mr-3" />,
+    // },
     {
       label: "Couleur",
       value: item.informations.color ?? "N/A",
@@ -506,7 +506,6 @@ export default function DetailsPageClient({ params }) {
                 query: {
                   brand: item.informations.brand,
                   model: item.informations.model,
-                  serialNumber: item.informations.serialNumber,
                 },
               }}
               passHref

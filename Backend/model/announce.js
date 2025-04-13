@@ -4,7 +4,6 @@ const announceSchemaMongo = new mongoose.Schema({
   brand: { type: String, required: true },
   model: { type: String, required: true },
   informations: {
-    serialNumber: { type: String, required: true },
     dateCirculation: { type: String, required: true }, // string si tu stockes une date ISO
     carBody: { type: String },
     type: { type: String, required: true },

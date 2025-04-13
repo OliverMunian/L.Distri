@@ -4,7 +4,6 @@ const announceSchema = z.object({
   brand: z.string({ required_error: "La marque est requise" }),
   model: z.string({ required_error: "Le modèle du véhicule est requis" }),
   informations: z.object({
-    serialNumber: z.string({ required_error: "Le numéro de série est requis" }),
     dateCirculation: z.string({
       required_error: "La date de mise en circulation est requise",
     }),
