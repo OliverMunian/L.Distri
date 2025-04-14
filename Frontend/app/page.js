@@ -20,18 +20,18 @@ import Loader from "./Components/Loader";
 import Team from "./Components/Team";
 //Images
 import Citroën from "../public/Logo/citroen.webp";
-import Daf from "../public/Logo/Daf.webp";
-import Fiat from "../public/Logo/Fiat.webp";
-import Ford from "../public/Logo/Ford.webp";
-import Iveco from "../public/Logo/Iveco.webp";
-import Man from "../public/Logo/Man.webp";
-import MercedesBenz from "../public/Logo/Mercedes.webp";
-import Nissan from "../public/Logo/Nissan.webp";
-import Opel from "../public/Logo/Opel.webp";
-import Peugeot from "../public/Logo/Peugeot.webp";
-import Renault from "../public/Logo/Renault.webp";
-import Volvo from "../public/Logo/Volvo.webp";
-import VW from "../public/Logo/VW.webp";
+import Daf from "../public/Logo/daf.webp";
+import Fiat from "../public/Logo/fiat.webp";
+import Ford from "../public/Logo/ford.webp";
+import Iveco from "../public/Logo/iveco.webp";
+import Man from "../public/Logo/man.webp";
+import MercedesBenz from "../public/Logo/mercedes.webp";
+import Nissan from "../public/Logo/nissan.webp";
+import Opel from "../public/Logo/opel.webp";
+import Peugeot from "../public/Logo/peugeot.webp";
+import Renault from "../public/Logo/renault.webp";
+import Volvo from "../public/Logo/volvo.webp";
+import VW from "../public/Logo/vw.webp";
 import Logo from "../public/logo(1).png";
 import Place from "../public/place.jpg";
 
@@ -130,7 +130,7 @@ export default function Home() {
               {displayLogo}
             </div>
           </div>
-          <Team/>
+          <Team />
           <Footer className="-mt-10 -z-10" />
         </>
       )}
