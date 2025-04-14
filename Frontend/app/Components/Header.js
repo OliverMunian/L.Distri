@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 //Assets
-import Banner from "../../public/Banner.jpg";
+import Banner from "../../public/Banner.webp";
 import Logo from "../../public/logo.png";
 //Icons
 import { CiMobile3 } from "react-icons/ci";
@@ -43,8 +43,12 @@ export default function Header({ className, contact, all }) {
           priority
         /> */}
         <div className="bg-black absolute top-0 size-full opacity-40 z-0"></div>
-        <div className={`absolute bottom-0 w-full h-[20px] rounded-t-3xl z-0 ${contact || all ? 'bg-white': 'bg-[#fafbfd]'}`}></div>
-        <div className="absolute flex items-start justify-between size-full h-1/6 top-0 z-10 p-5 border-b-zinc-300 border-b-[0.55px]">
+        <div
+          className={`absolute bottom-0 w-full h-[20px] rounded-t-3xl z-0 ${
+            contact || all ? "bg-white" : "bg-[#fafbfd]"
+          }`}
+        ></div>
+        <div className="absolute flex items-start justify-between size-full h-1/6 top-0 z-10 p-5">
           <div className="w-full flex items-center justify-between">
             <div className="w-1/3 flex items-center md:justify-between max-md:w-full">
               <Link href={"/"} className="w-1/4">
@@ -59,7 +63,7 @@ export default function Header({ className, contact, all }) {
                 <GiHamburgerMenu className="text-white text-3xl" />
               </button>
               <Link href={"/"} className="mx-3 text-lg max-md:hidden">
-                <h1 className="font-inter text-white hover:cursor-pointer hover:underline underline-offset-4">
+                <h1 className="font-inter text-sm text-white hover:cursor-pointer hover:underline underline-offset-4">
                   Accueil
                 </h1>
               </Link>
@@ -67,25 +71,15 @@ export default function Header({ className, contact, all }) {
                 href={"/all"}
                 className="mx-3 text-lg hover:cursor-pointer max-md:hidden"
               >
-                <h1 className="font-inter text-white hover:cursor-pointer hover:underline underline-offset-4">
+                <h1 className="font-inter text-sm text-white hover:cursor-pointer hover:underline underline-offset-4">
                   Annonces
                 </h1>
               </Link>
-              <button className="mx-3 text-lg hover:cursor-pointer border-[0.75px] border-white p-2 rounded-xl transition hover:bg-white hover:text-black max-md:hidden">
-                <Link
-                  href={"/contact"}
-                  onMouseOver={() => setHover(true)}
-                  onMouseLeave={() => setHover(false)}
-                >
-                  <h1
-                    className={`font-inter hover:text-black ${
-                      hover ? "hover:text-black" : "text-white"
-                    }`}
-                  >
-                    Contact
-                  </h1>{" "}
-                </Link>
-              </button>
+              <Link href={"/contact"}>
+                <h1 className="font-inter text-sm text-white hover:cursor-pointer hover:underline underline-offset-4">
+                  Contact
+                </h1>{" "}
+              </Link>
             </div>
             {menu && (
               <div className="fixed inset-0 w-full h-full z-[60] flex flex-col items-center justify-center">

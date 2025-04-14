@@ -8,27 +8,32 @@ import { CiMobile3 } from "react-icons/ci";
 import { Icon } from "@iconify/react";
 import { CgArrowTopRight } from "react-icons/cg";
 import { BsDisplay, BsPatchExclamationFill } from "react-icons/bs";
+import { RiDoubleQuotesL } from "react-icons/ri";
+import { RiDoubleQuotesR } from "react-icons/ri";
+
 //Components
 import Header from "./Components/Header";
 import TypeVehicle from "./Components/TypeVehicle";
 import Fleet from "./Components/Fleet";
 import Footer from "./Components/Footer";
 import Loader from "./Components/Loader";
+import Team from "./Components/Team";
 //Images
-import Citroën from "../public/Logo/Citroën.png";
-import Daf from "../public/Logo/Daf.png";
-import Fiat from "../public/Logo/Fiat.png";
-import Ford from "../public/Logo/Ford.png";
-import Iveco from "../public/Logo/Iveco.png";
-import Man from "../public/Logo/Man.png";
-import MercedesBenz from "../public/Logo/Mercedes_Benz.png";
-import Nissan from "../public/Logo/Nissan.png";
-import Opel from "../public/Logo/Opel.png";
-import Peugeot from "../public/Logo/Peugeot.png";
-import Renault from "../public/Logo/Renault.png";
-import Volvo from "../public/Logo/Volvo.png";
-import VW from "../public/Logo/VW.png"
+import Citroën from "../public/Logo/citroen.webp";
+import Daf from "../public/Logo/Daf.webp";
+import Fiat from "../public/Logo/Fiat.webp";
+import Ford from "../public/Logo/Ford.webp";
+import Iveco from "../public/Logo/Iveco.webp";
+import Man from "../public/Logo/Man.webp";
+import MercedesBenz from "../public/Logo/Mercedes.webp";
+import Nissan from "../public/Logo/Nissan.webp";
+import Opel from "../public/Logo/Opel.webp";
+import Peugeot from "../public/Logo/Peugeot.webp";
+import Renault from "../public/Logo/Renault.webp";
+import Volvo from "../public/Logo/Volvo.webp";
+import VW from "../public/Logo/VW.webp";
 import Logo from "../public/logo(1).png";
+import Place from "../public/place.jpg";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -70,30 +75,50 @@ export default function Home() {
       {loading && <Loader onFinish={() => setLoading(false)} />}
       {!loading && (
         <>
-          <Header/>
+          <Header />
           {/* <TypeVehicle /> */}
-          <Fleet className='-mt-64'/>
-          <div className="flex flex-col justify-center items-center z-10 px-40 py-10 max-xl:px-20 max-lg:px-10">
-            <p className="font-inter font-light text-[#060b1f] text-center text-sm">
-              L.Distri est une entreprise française spécialisée dans la vente de
-              camions et véhicules utilitaires toutes catégories, à destination
-              des professionnels. Implantés à Vannes (56), nous mettons à
-              disposition une large gamme de véhicules neufs et d’occasion,
-              soigneusement sélectionnés et préparés selon les standards les
-              plus exigeants. Notre réseau logistique nous permet d’assurer la
-              livraison sur l’ensemble du territoire national. Réactivité,
-              fiabilité et expertise terrain font de L.Distri un acteur reconnu
-              dans le secteur du véhicule professionnel. Nous accompagnons nos
-              clients dans leur développement avec des solutions sur mesure,
-              allant de la reprise à l’aménagement, jusqu’à la livraison du
-              véhicule prêt à l’emploi.
-              <br />
-              <br />
-            </p>
-            <p className="font-inter font-light text-[#060b1f] text-center text-sm italic">
-              Chez L.Distri, on ne vend pas simplement des camions, on équipe
-              ceux qui avancent.
-            </p>
+          <Fleet className="-mt-64" />
+          <div
+            className="flex justify-center items-center z-10 max-xl:px-20 max-lg:px-10 bg-cover bg-center rounded-b-3xl overflow-hidden"
+            style={{ backgroundImage: `url(${Place.src})` }}
+          >
+            <div className="h-full relative flex overflow-hidden bg-cover bg-center backdrop-blur-[4px] py-10">
+              <div className="absolute w-full top-0 h-[20px] bg-[#fafbfd] rounded-b-3xl z-10"></div>
+              <div className="absolute w-full top-0 h-full bg-black opacity-45 rounded-b-3xl z-0"></div>
+              <div className="flex flex-col items-center justify-center h-full p-10 z-10">
+                <p className="font-inter text-left font-medium text-base text-white">
+                  L.Distri est une entreprise française spécialisée dans la
+                  vente de camions et véhicules utilitaires toutes catégories, à
+                  destination des professionnels.
+                  <br />
+                  <br />
+                  Implantés à Vannes (56), nous mettons à disposition une large
+                  gamme de véhicules neufs et d’occasion, soigneusement
+                  sélectionnés et préparés selon les standards les plus
+                  exigeants. Notre réseau logistique nous permet d’assurer la
+                  livraison sur l’ensemble du territoire national.
+                  <br />
+                  <br />
+                  Réactivité, fiabilité et expertise terrain font de L.Distri un
+                  acteur reconnu dans le secteur du véhicule professionnel. Nous
+                  accompagnons nos clients dans leur développement avec des
+                  solutions sur mesure, allant de la reprise à l’aménagement,
+                  jusqu’à la livraison du véhicule prêt à l’emploi.
+                  <br />
+                  <br />
+                  <br />
+                </p>
+                <div className="flex items-end">
+                  <RiDoubleQuotesL className="text-white text-4xl" />
+                  <p className="font-inter font-medium text-center text-base italic text-white">
+                    Chez L.Distri, on ne vend pas simplement des camions, on
+                    équipe ceux qui avancent.
+                  </p>
+                  <RiDoubleQuotesR className="text-white text-4xl" />
+                </div>
+              </div>
+              {/* <Image src={Place} alt="entrepot_Ldistri" className="w-1/3" /> */}
+            </div>
           </div>
           <div className="w-full flex flex-col justify-start px-40 py-8 max-xl:px-20 max-lg:px-10 max-sm:px-4 z-10 bg-white">
             <div className="mb-8">
@@ -105,9 +130,8 @@ export default function Home() {
               {displayLogo}
             </div>
           </div>
-
-
-          <Footer className='-mt-10 -z-10' />
+          <Team/>
+          <Footer className="-mt-10 -z-10" />
         </>
       )}
     </div>
