@@ -33,7 +33,7 @@ export default function CarouselTruck({
       {displayedImages.map((img, index) => (
         <SwiperSlide key={index}>
           <Image
-            src={`https://www.ldistri.fr/${imgPath}`}
+            src={`https://www.ldistri.fr/${img}`}
             alt={`Image ${index + 1}`}
             width={500}
             height={300}
