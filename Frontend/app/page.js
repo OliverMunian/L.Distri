@@ -117,7 +117,7 @@ export default function Home() {
                   <RiDoubleQuotesR className="text-white text-4xl" />
                 </div>
               </div>
-              {/* <Image src={Place} alt="entrepot_Ldistri" className="w-1/3" /> */}
+              <Image src={Place} alt="entrepot_Ldistri" className="w-1/3" />
             </div>
           </div>
           <div className="w-full flex flex-col justify-start px-40 py-8 max-xl:px-20 max-lg:px-10 max-sm:px-4 z-10 bg-white">

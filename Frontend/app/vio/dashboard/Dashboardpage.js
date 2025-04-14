@@ -30,7 +30,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const isAuthed = localStorage.getItem("admin-auth");
     if (!isAuthed) {
-      router.push("/admin");
+      router.push("/vio");
     } else {
       fetchAnnounces();
     }
