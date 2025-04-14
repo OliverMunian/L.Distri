@@ -75,7 +75,7 @@ export default function Header({ className, contact, all }) {
                   Annonces
                 </h1>
               </Link>
-              <Link href={"/contact"}>
+              <Link href={"/contact"}  className="mx-3 text-lg hover:cursor-pointer max-md:hidden">
                 <h1 className="font-inter text-sm text-white hover:cursor-pointer hover:underline underline-offset-4">
                   Contact
                 </h1>{" "}

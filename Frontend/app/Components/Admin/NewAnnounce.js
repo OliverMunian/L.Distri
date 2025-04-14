@@ -14,7 +14,6 @@ export default function NewAnnounce({
     brand: "",
     model: "",
     informations: {
-      serialNumber: "",
       dateCirculation: "",
       carBody: "",
       type: "",
@@ -527,22 +526,6 @@ export default function NewAnnounce({
           />
           {errors.model && <p className="text-red-500">{errors.model}</p>}
         </div>
-        {/* <div>
-          <label className="text-[#060b1f] font-inter">Numero de série*</label>
-          <input
-            type="text"
-            name="informations.serialNumber"
-            placeholder="N° de série"
-            value={form.informations.serialNumber}
-            onChange={handleChange}
-            className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 focus:outline-none transition-all duration-200 shadow-sm uppercase placeholder:lowercase"
-          />
-          {errors["informations.serialNumber"] && (
-            <p className="text-red-500">
-              {errors["informations.serialNumber"]}
-            </p>
-          )}
-        </div> */}
         <div>
           <label className="text-[#060b1f] font-inter">
             Date de mise en circulation*
