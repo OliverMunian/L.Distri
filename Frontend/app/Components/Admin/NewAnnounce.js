@@ -245,7 +245,7 @@ export default function NewAnnounce({
       //Images dans le preview :
       const imagePreviews = initialData.images?.map((imgPath) => ({
         file: null,
-        preview: `${process.env.NEXT_PUBLIC_API_URL}/${imgPath}`,
+        preview: `https://www.ldistri.fr/${imgPath}`,
         uploaded: true, // pour savoir que ce n’est pas une nouvelle image
       }));
       setImages(imagePreviews);
