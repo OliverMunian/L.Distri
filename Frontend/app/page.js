@@ -33,7 +33,7 @@ import Renault from "../public/Logo/renault.webp";
 import Volvo from "../public/Logo/volvo.webp";
 import VW from "../public/Logo/vw.webp";
 import Logo from "../public/logo(1).png";
-import Place from "../public/place.jpg";
+import Place from "../public/Place.jpg";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
