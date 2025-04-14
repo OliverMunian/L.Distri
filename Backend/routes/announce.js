@@ -93,7 +93,7 @@ router.post("/publish", upload.array("images"), async (req, res) => {
 
       fs.unlinkSync(originalPath); // Supprime l'image originale
 
-      compressedImagePaths.push(compressedPath); // Ajoute le chemin compressé
+      compressedImagePaths.push(`uploads/${path.basename(compressedPath)}`);
     }
 
     const data = {
