@@ -56,7 +56,7 @@ export default function DetailsPage({ params }) {
   }, [id, router]);
 
   const handleEdit = () => {
-    router.push(`/admin/dashboard?edit=${item._id}`);
+    router.push(`/vio/dashboard?edit=${item._id}`);
   };
 
   if (loading)

@@ -55,7 +55,7 @@ export default function AdminDashboard() {
       setLoadingAnnounces(false);
 
       data.data.forEach((announce) => {
-        router.prefetch(`/admin/details/${announce._id}`);
+        router.prefetch(`/vio/details/${announce._id}`);
       });
     } catch (err) {
       console.error(err);
