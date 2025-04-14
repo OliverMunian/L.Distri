@@ -195,7 +195,7 @@ export default function AdminDashboard() {
             </h1>
             <div className="flex items-center hover:cursor-pointer">
               <Link
-                href={`/admin/details/${announce._id}`}
+                href={`/vio/details/${announce._id}`}
                 className="flex items-center"
               >
                 <h1 className="text-indigo-600 hover:underline hover:cursor-pointer text-sm max-lg:text-xs">
