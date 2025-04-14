@@ -33,7 +33,7 @@ import Renault from "../public/Logo/renault.webp";
 import Volvo from "../public/Logo/volvo.webp";
 import VW from "../public/Logo/vw.webp";
 import Logo from "../public/logo(1).png";
-import Place from "../public/place.jpg";
+import Place from '../public/Place.jpg'
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -80,7 +80,7 @@ export default function Home() {
           <Fleet className="-mt-64" />
           <div
             className="flex justify-center items-center z-10 max-xl:px-20 max-lg:px-10 bg-cover bg-center rounded-b-3xl overflow-hidden"
-            style={{ backgroundImage: `url(${Place.src})` }}
+            // style={{ backgroundImage: `url(${Place.src})` }}
           >
             <div className="h-full relative flex overflow-hidden bg-cover bg-center backdrop-blur-[4px] py-10">
               <div className="absolute w-full top-0 h-[20px] bg-[#fafbfd] rounded-b-3xl z-10"></div>
