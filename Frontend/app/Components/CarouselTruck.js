@@ -14,7 +14,7 @@ export default function CarouselTruck({
   arrows = false,
 }) {
   const backendUrl = process.env.NEXT_PUBLIC_API_URL;
-  const displayedImages = limit ? images.slice(0, limit) : images;
+  const displayedImages = Array.isArray(images) ? (limit ? images.slice(0, limit) : images) : [];
 
   return (
     <Swiper
