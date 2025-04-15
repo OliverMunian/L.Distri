@@ -37,7 +37,7 @@ export default function AdminDashboard() {
   }, []);
 
   useEffect(() => {
-    if (editId && announces.length > 0) {
+    if (editId && Array.isArray(announces) && announces.length > 0) {
       const found = announces.find((a) => a._id === editId);
       if (found) {
         setEditingAnnounce(found);
@@ -62,6 +62,8 @@ export default function AdminDashboard() {
       setLoadingAnnounces(false);
     }
   };
+
+  console.log("Ligne 66 -Dashboard, annonce images:", editingAnnounce.images)
 
   function disconnect() {
     localStorage.removeItem("admin-auth", "");

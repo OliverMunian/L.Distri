@@ -270,8 +270,6 @@ export default function NewAnnounce({
         console.error("!!! ERREUR DANS useEffect de NewAnnounce !!!", error);
       }
     }
-    
-    
     else{
       console.log("No initialData, skipping state updates.");
     }
