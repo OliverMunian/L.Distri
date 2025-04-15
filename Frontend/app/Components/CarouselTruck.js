@@ -15,6 +15,9 @@ export default function CarouselTruck({
 }) {
   const backendUrl = process.env.NEXT_PUBLIC_API_URL;
   const displayedImages = Array.isArray(images) ? (limit ? images.slice(0, limit) : images) : [];
+  if (!displayedImages || displayedImages.length === 0) {
+    return <div>Aucune image disponible</div>; // Ou un autre message/composant
+  }
 
   return (
     <Swiper

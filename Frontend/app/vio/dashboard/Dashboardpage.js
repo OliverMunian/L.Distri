@@ -147,6 +147,9 @@ export default function AdminDashboard() {
   const announcesToShow = search.trim() ? filteredAnnounces : announces;
 
   const announcesDisplay = announcesToShow.map((announce, i) => {
+    if (!announce.images || !Array.isArray(announce.images)) {
+      return null; // Ou un autre rendu conditionnel si images est manquant
+    }
     return (
       <div
         className="w-full flex flex-col items-center justify-start md:h-[500px]"
