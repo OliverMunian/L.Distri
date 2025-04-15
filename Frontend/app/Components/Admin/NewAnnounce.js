@@ -239,16 +239,41 @@ export default function NewAnnounce({
 
   //Pour la modification
   useEffect(() => {
-    if (initialData) {
-      setForm(initialData);
+    console.log("--- NewAnnounce useEffect ---");
+    console.log("Raw initialData received:", JSON.stringify(initialData, null, 2));
+    // if (initialData) {
+    //   setForm(initialData);
+    //   console.log('Ligne 244 - initialData:',initialData.images)
 
-      //Images dans le preview :
-      const imagePreviews = initialData.images?.map((imgPath) => ({
-        file: null,
-        preview: `https://www.ldistri.fr/${imgPath}`,
-        uploaded: true, // pour savoir que ce n’est pas une nouvelle image
-      }));
-      setImages(imagePreviews);
+    //   //Images dans le preview :
+    //   const imagePreviews = initialData.images?.map((imgPath) => ({
+    //     file: null,
+    //     preview: `https://www.ldistri.fr/${imgPath}`,
+    //     uploaded: true, // pour savoir que ce n’est pas une nouvelle image
+    //   }));
+    //   setImages(imagePreviews);
+    // }
+    if (initialData) {
+      try {
+        console.log("Attempting to setForm...");
+        setForm(initialData);
+        console.log('Ligne 260 - initialData:',initialData.images)
+  
+        //Images dans le preview :
+        const imagePreviews = initialData.images?.map((imgPath) => ({
+          file: null,
+          preview: `https://www.ldistri.fr/${imgPath}`,
+          uploaded: true, // pour savoir que ce n’est pas une nouvelle image
+        }));
+        setImages(imagePreviews);
+      } catch (error) {
+        console.error("!!! ERREUR DANS useEffect de NewAnnounce !!!", error);
+      }
+    }
+    
+    
+    else{
+      console.log("No initialData, skipping state updates.");
     }
   }, [initialData]);
 
