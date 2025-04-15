@@ -80,7 +80,7 @@ export default function Home() {
           <Fleet className="-mt-64" />
           <div
             className="flex justify-center items-center z-10 max-xl:px-20 max-lg:px-10 bg-cover bg-center rounded-b-3xl overflow-hidden"
-            // style={{ backgroundImage: `url(${Place.src})` }}
+            style={{ backgroundImage: `url(${Place.src})` }}
           >
             <div className="h-full relative flex overflow-hidden bg-cover bg-center backdrop-blur-[4px] py-10">
               <div className="absolute w-full top-0 h-[20px] bg-[#fafbfd] rounded-b-3xl z-10"></div>
@@ -117,7 +117,7 @@ export default function Home() {
                   <RiDoubleQuotesR className="text-white text-4xl" />
                 </div>
               </div>
-              <Image src={Place} alt="entrepot_Ldistri" className="w-1/3" />
+              {/* <Image src={Place} alt="entrepot_Ldistri" className="w-1/3" /> */}
             </div>
           </div>
           <div className="w-full flex flex-col justify-start px-40 py-8 max-xl:px-20 max-lg:px-10 max-sm:px-4 z-10 bg-white">
