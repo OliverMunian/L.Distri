@@ -37,19 +37,12 @@ export default function AdminDashboard() {
   }, []);
 
   useEffect(() => {
-    if (!editId) return;
-  
-    // Si les annonces ne sont pas encore chargées
-    if (!Array.isArray(announces) || announces.length === 0) return;
-  
-    const found = announces.find((a) => a._id === editId);
-  
-    if (found) {
-      setEditingAnnounce(found);
-      setNewAnnounce(true);
-    } else {
-      console.warn("Aucune annonce trouvée avec cet ID :", editId);
-      // Optionnel : tu peux aussi reset editId ici ou rediriger
+    if (editId && announces.length > 0) {
+      const found = announces.find((a) => a._id === editId);
+      if (found) {
+        setEditingAnnounce(found);
+        setNewAnnounce(true);
+      }
     }
   }, [editId, announces]);
 
