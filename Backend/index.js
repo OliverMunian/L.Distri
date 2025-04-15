@@ -1,4 +1,5 @@
 require("dotenv").config()
+console.log(">>> Dotenv loaded. MONGODB_URI is:", process.env.MONGODB_URI ? "SET" : "!!! UNDEFINED !!!");
 require("./model/connection");
 const express = require("express");
 const multer = require("multer");
