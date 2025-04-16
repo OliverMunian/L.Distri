@@ -153,13 +153,13 @@ export default function AdminDashboard() {
         className="w-full flex flex-col items-center justify-start md:h-[500px]"
         key={i}
       >
-        <div className="w-full h-full">
-          <CarouselTruck
-            images={announce.images}
-            limit={3}
-            design={` h-full rounded-t-xl hover:cursor-pointer`}
-          />
-        </div>
+        <Link href={`/vio/details/${announce._id}`} className="block w-full h-full">
+            <CarouselTruck
+              images={announce.images}
+              limit={3}
+              // design={`h-full rounded-t-xl`}
+            />
+        </Link>
 
         <div className="w-full h-full flex flex-col items-center justify-center px-5 py-3 border-[#060b1f] border-[1px] border-t-0 rounded-b-xl">
           <div className="w-full">

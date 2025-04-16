@@ -50,14 +50,13 @@ export default function Fleet({ params, brand, chooseVehicle }) {
   const camionsDisplay = camions.map((camion, i) => {
     return (
       <div className="h-auto flex flex-col items-center justify-start" key={i}>
-        <div className="w-full h-full">
+        <Link href={`/details/${camion._id}`} className="w-full h-full">
           <CarouselTruck
             images={camion.images}
             limit={3}
             design={` h-full rounded-t-xl hover:cursor-pointer hover:scale-[105%] transition`}
           />
-        </div>
-
+        </Link>
         <div className="w-full h-full flex flex-col items-center justify-center px-5 py-3 border-zinc-300 border-[1px] border-t-0 rounded-b-xl">
           <div className="w-full">
             <h1 className="font-inter font-bold text-lg text-[#060b1f]">
@@ -110,14 +109,13 @@ export default function Fleet({ params, brand, chooseVehicle }) {
   const camionsFiltered = filteredAnnounces.map((camion, i) => {
     return (
       <div className="h-auto flex flex-col items-center justify-start" key={i}>
-        <div className="w-full h-full">
+        <Link href={`/details/${camion._id}`} className="w-full h-full">
           <CarouselTruck
             images={camion.images}
             limit={3}
             design={` h-full rounded-t-xl hover:cursor-pointer hover:scale-[105%] transition`}
           />
-        </div>
-
+        </Link>
         <div className="w-full h-full flex flex-col items-center justify-center px-5 py-3 border-zinc-300 border-[1px] border-t-0 rounded-b-xl">
           <div className="w-full">
             <h1 className="font-inter font-bold text-lg text-[#060b1f]">
@@ -212,7 +210,6 @@ export default function Fleet({ params, brand, chooseVehicle }) {
           <h1 className="font-inter font-medium text-2xl text-[#060b1f] text-center">
             Aucun véhicule disponible à la vente pour le moment...
           </h1>
-
 
           {/* <Link href={`/all`} className="flex items-center mt-5">
             <h1 className="font-inter font-bold text-lg text-[#060b1f] mr-2 hover:underline">
