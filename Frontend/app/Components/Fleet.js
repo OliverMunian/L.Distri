@@ -31,7 +31,7 @@ export default function Fleet({ params, brand, chooseVehicle }) {
 
       // Cas 2 : je suis utilisé sans params => je fetch
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/announces`, {
-        cache: "force-cache",
+        cache: "no-store",
       });
       const data = await res.json();
       if (Array.isArray(data.data)) {
