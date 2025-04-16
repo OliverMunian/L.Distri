@@ -14,6 +14,7 @@ var announcesRouter = require("./routes/announce");
 var contactRouter = require("./routes/contact");
 var loginRouter = require("./routes/login");
 
+
 app.use(
   cors({
     origin: "https://www.ldistri.fr", // Permet les requêtes de ce domaine
