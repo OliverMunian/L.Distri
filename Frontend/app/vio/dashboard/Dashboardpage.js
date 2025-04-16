@@ -63,8 +63,6 @@ export default function AdminDashboard() {
     }
   };
 
-  console.log("Ligne 66 -Dashboard, annonce images:", editingAnnounce.images)
-
   function disconnect() {
     localStorage.removeItem("admin-auth", "");
     toast.success("Vous êtes déconnecté", {
