@@ -10,6 +10,8 @@ export default function NewAnnounce({
   onSuccess,
   initialData = null,
 }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
   const [form, setForm] = useState({
     brand: "",
     model: "",
@@ -240,7 +242,10 @@ export default function NewAnnounce({
   //Pour la modification
   useEffect(() => {
     console.log("--- NewAnnounce useEffect ---");
-    console.log("Raw initialData received:", JSON.stringify(initialData, null, 2));
+    console.log(
+      "Raw initialData received:",
+      JSON.stringify(initialData, null, 2)
+    );
     // if (initialData) {
     //   setForm(initialData);
     //   console.log('Ligne 244 - initialData:',initialData.images)
@@ -279,8 +284,8 @@ export default function NewAnnounce({
       try {
         console.log("Attempting to setForm...");
         setForm(mergedData);
-        console.log('Ligne 260 - initialData:',initialData.images)
-  
+        console.log("Ligne 260 - initialData:", initialData.images);
+
         //Images dans le preview :
         const imagePreviews = initialData.images?.map((imgPath) => ({
           file: null,
@@ -291,8 +296,7 @@ export default function NewAnnounce({
       } catch (error) {
         console.error("!!! ERREUR DANS useEffect de NewAnnounce !!!", error);
       }
-    }
-    else{
+    } else {
       console.log("No initialData, skipping state updates.");
     }
   }, [initialData]);
@@ -395,7 +399,7 @@ export default function NewAnnounce({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsSubmitting(true)
     if (form.informations.dateCirculation && form.informations.year) {
       const circulationYear = new Date(
         form.informations.dateCirculation
@@ -406,6 +410,7 @@ export default function NewAnnounce({
           "informations.year":
             "L'année du véhicule ne peut pas être supérieure à la date de mise en circulation",
         }));
+        setIsSubmitting(false)
         toast.error("Erreur : vérifiez l'année du véhicule.", {
           position: "top-center",
           autoClose: 3000,
@@ -451,6 +456,7 @@ export default function NewAnnounce({
       const data = await res.json();
       console.log("Ligne 177: ", data.errors);
       setErrors(data.errors);
+      setIsSubmitting(false)
       toast.error(
         "Erreur lors de la publication, veuillez compléter les champs requis",
         {
@@ -474,6 +480,7 @@ export default function NewAnnounce({
       setErrors({});
       onClose();
       onSuccess?.();
+      setIsSubmitting(false)
       if (isEditing) {
         toast.success("Annonce modifiée avec succès !", {
           position: "top-center",
@@ -492,6 +499,7 @@ export default function NewAnnounce({
           },
         });
       } else {
+        setIsSubmitting(false)
         toast.success("Annonce publiée avec succès !", {
           position: "top-center",
           autoClose: 3000,
@@ -951,9 +959,22 @@ export default function NewAnnounce({
         <div className="flex items-center justify-between w-full">
           <button
             type="submit"
-            className="bg-green-500 text-white px-4 py-2 rounded hover:cursor-pointer hover:bg-green-800 w-1/3"
+            disabled={isSubmitting}
+            className={`
+              px-4 py-2 w-1/3 rounded-lg flex items-center justify-center gap-2 transition
+              ${
+                isSubmitting
+                  ? "bg-gray-400 text-gray-100 cursor-not-allowed" // Style désactivé PENDANT la soumission
+                  : "bg-green-500 hover:bg-green-800 text-white hover:cursor-pointer" // Style normal/actif
+              }
+            `}
           >
-            Publier
+            {/* Affiche le spinner seulement si isSubmitting est true */}
+            {isSubmitting && (
+              <span className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></span>
+            )}
+            {/* Change le texte du bouton si isSubmitting est true */}
+            {isSubmitting ? "Publication..." : "Publier"}
           </button>
           <button
             className="bg-red-500 text-white px-4 py-2 rounded hover:cursor-pointer hover:bg-red-800 w-1/3"

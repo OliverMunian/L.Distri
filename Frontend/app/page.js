@@ -79,14 +79,14 @@ export default function Home() {
           {/* <TypeVehicle /> */}
           <Fleet className="-mt-64" />
           <div
-            className="flex justify-center items-center z-10 max-xl:px-20 max-lg:px-10 bg-cover bg-center rounded-b-3xl overflow-hidden"
+            className="flex justify-center items-center z-10 bg-cover bg-center rounded-b-3xl overflow-hidden"
             style={{ backgroundImage: `url(${Place.src})` }}
           >
             <div className="h-full relative flex overflow-hidden bg-cover bg-center backdrop-blur-[4px] py-10">
               <div className="absolute w-full top-0 h-[20px] bg-[#fafbfd] rounded-b-3xl z-10"></div>
               <div className="absolute w-full top-0 h-full bg-black opacity-45 rounded-b-3xl z-0"></div>
               <div className="flex flex-col items-center justify-center h-full p-10 z-10">
-                <p className="font-inter text-left font-medium text-base text-white">
+                <p className="font-inter text-left font-medium text-base text-white max-sm:text-sm">
                   L.Distri est une entreprise française spécialisée dans la
                   vente de camions et véhicules utilitaires toutes catégories, à
                   destination des professionnels.
@@ -108,9 +108,9 @@ export default function Home() {
                   <br />
                   <br />
                 </p>
-                <div className="flex items-end">
-                  <RiDoubleQuotesL className="text-white text-4xl" />
-                  <p className="font-inter font-medium text-center text-base italic text-white">
+                <div className="flex items-end max-sm:items-start">
+                  <RiDoubleQuotesL className="text-white text-4xl " />
+                  <p className="font-inter font-medium text-center text-base italic text-white max-sm:text-sm">
                     Chez L.Distri, on ne vend pas simplement des camions, on
                     équipe ceux qui avancent.
                   </p>

@@ -126,6 +126,26 @@ export default function DetailsPageClient({ params }) {
   ];
 
   const informationDisplay = details.map((info, i) => {
+    if (info.label == "Année") {
+      return (
+        <div
+          key={i}
+          className={`flex justify-between ${
+            i !== 0 ? "border-t-[0.75px] border-t-zinc-400" : ""
+          } py-3`}
+        >
+          <div className="flex items-center">
+            {info.icon}
+            <h4 className="font-inter font-normal text-[#060b1f] text-sm">
+              {info.label}
+            </h4>
+          </div>
+          <h4 className="font-inter font-bold text-[#060b1f] text-sm">
+            {info.value || "N/A"}
+          </h4>
+        </div>
+      );
+    }
     return (
       <div
         key={i}
@@ -458,8 +478,10 @@ export default function DetailsPageClient({ params }) {
             <p className="font-inter text-[#060b1f] font-light text-sm">
               {item.informations.description}
             </p>
-            <button className="w-[35%] flex items-center justify-center rounded-lg p-3 mt-5 bg-slate-200 hover:bg-slate-400 hover:cursor-pointer max-sm:w-[45%]"
-             onClick={() => alert('Indisponible pour le moment')}>
+            <button
+              className="w-[35%] flex items-center justify-center rounded-lg p-3 mt-5 bg-slate-200 hover:bg-slate-400 hover:cursor-pointer max-sm:w-[45%]"
+              onClick={() => alert("Indisponible pour le moment")}
+            >
               <SlBookOpen className="text-[#060b1f] mr-2" />
               <h1 className="text-[#060b1f] text-base font-inter font-bold">
                 Brochure PDF
