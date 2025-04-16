@@ -254,9 +254,31 @@ export default function NewAnnounce({
     //   setImages(imagePreviews);
     // }
     if (initialData) {
+      const mergedData = {
+        ...form, // garde la structure initiale
+        ...initialData,
+        informations: {
+          ...form.informations,
+          ...initialData.informations,
+          dimensions: {
+            ...form.informations.dimensions,
+            ...(initialData.informations?.dimensions || {}),
+          },
+        },
+        features: {
+          interior: {
+            ...form.features.interior,
+            ...(initialData.features?.interior || {}),
+          },
+          exterior: {
+            ...form.features.exterior,
+            ...(initialData.features?.exterior || {}),
+          },
+        },
+      };
       try {
         console.log("Attempting to setForm...");
-        setForm(initialData);
+        setForm(mergedData);
         console.log('Ligne 260 - initialData:',initialData.images)
   
         //Images dans le preview :
