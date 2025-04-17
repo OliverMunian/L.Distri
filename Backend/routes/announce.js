@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-
+   
 
 function sanitizeParsed(parsed) {
   return {
@@ -78,23 +78,28 @@ router.post("/publish", upload.array("images"), async (req, res) => {
     const parsedBody = JSON.parse(req.body.data || "{}");
     const sanitized = sanitizeParsed(parsedBody);
 
-    // Compression des images
+    // Compression des images (async + parallèle)
     const compressedImagePaths = [];
 
-    for (const file of req.files) {
-      const originalPath = file.path;
-      const ext = path.extname(originalPath);
-      const compressedPath = originalPath.replace(ext, `-compressed.webp`);
+    await Promise.all(
+      req.files.map(async (file) => {
+        const originalPath = file.path;
+        const ext = path.extname(originalPath);
+        const compressedPath = originalPath.replace(ext, `-compressed.webp`);
 
-      await sharp(originalPath)
-        .resize(1200) // Redimensionne en largeur (proportionnel)
-        .webp({ quality: 80 }) // Compression format WebP
-        .toFile(compressedPath);
+        await sharp(originalPath)
+          .resize(1200) // Redimensionne en largeur (proportionnel)
+          .webp({ quality: 80 }) // Compression format WebP
+          .toFile(compressedPath);
 
-      fs.unlinkSync(originalPath); // Supprime l'image originale
+        // Supprime l'image originale (non bloquant)
+        fs.unlink(originalPath, (err) => {
+          if (err) console.error("Erreur suppression image :", err);
+        });
 
-      compressedImagePaths.push(`uploads/${path.basename(compressedPath)}`);
-    }
+        compressedImagePaths.push(`uploads/${path.basename(compressedPath)}`);
+      })
+    );
 
     const data = {
       ...sanitized,
@@ -106,7 +111,7 @@ router.post("/publish", upload.array("images"), async (req, res) => {
 
     if (!parseResult.success) {
       const formattedErrors = {};
-      parseResult.error.errors.forEach(err => {
+      parseResult.error.errors.forEach((err) => {
         const path = err.path.join(".");
         formattedErrors[path] = err.message;
       });
@@ -138,33 +143,41 @@ router.put("/modify/:id", upload.array("images"), async (req, res) => {
 
     const sanitized = sanitizeParsed(parsedData);
 
-    // 🔥 Supprimer les anciennes images supprimées par l'admin
+    // 🔥 Supprimer les anciennes images supprimées par l'admin (non bloquant)
     for (const pathToDelete of deletedImages) {
       if (fs.existsSync(pathToDelete)) {
-        fs.unlinkSync(pathToDelete);
+        fs.unlink(pathToDelete, (err) => {
+          if (err) console.error("Erreur suppression image supprimée :", err);
+        });
       }
     }
 
-    // 🔧 Compression des nouvelles images
+    // 🔧 Compression des nouvelles images (parallèle)
     const compressedImagePaths = [];
 
     if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
-        const originalPath = file.path;
-        const ext = path.extname(originalPath);
-        const compressedPath = originalPath.replace(ext, `-compressed.webp`);
+      await Promise.all(
+        req.files.map(async (file) => {
+          const originalPath = file.path;
+          const ext = path.extname(originalPath);
+          const compressedPath = originalPath.replace(ext, `-compressed.webp`);
 
-        await sharp(originalPath)
-          .resize({ width: 1200 })
-          .webp({ quality: 75 })
-          .toFile(compressedPath);
+          await sharp(originalPath)
+            .resize({ width: 1200 })
+            .webp({ quality: 75 })
+            .toFile(compressedPath);
 
-        fs.unlinkSync(originalPath); // supprime l'original
-        compressedImagePaths.push(compressedPath);
-      }
+          // Supprime l'image originale (non bloquant)
+          fs.unlink(originalPath, (err) => {
+            if (err) console.error("Erreur suppression image originale :", err);
+          });
+
+          compressedImagePaths.push(compressedPath);
+        })
+      );
     }
 
-    // 📸 Conserve les anciennes restantes (celles non supprimées)
+    // 📸 Conserve les anciennes restantes
     const existingImages = Array.isArray(sanitized.images)
       ? sanitized.images.filter((img) => typeof img === "string")
       : [];
@@ -190,7 +203,7 @@ router.put("/modify/:id", upload.array("images"), async (req, res) => {
     });
   } catch (error) {
     console.error("Erreur PUT /announces/:id :", error);
-    return res.status(500).json({ message: "Erreur serveur" });
+    return res.status(500).json({ message: "Erreur serveur", error: error.message });
   }
 });
 
