@@ -5,7 +5,7 @@ const announceSchema = require("../schemas/announce");
 const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
-const sharp =require('sharp')
+const sharp = require("sharp");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -17,38 +17,38 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-   
 
 function sanitizeParsed(parsed) {
   return {
-      ...parsed,
-      informations: {
-          ...parsed.informations,
-          horsePower: Number(parsed.informations.horsePower) || undefined,
-          year: Number(parsed.informations.year) || undefined,
-          kms: Number(parsed.informations.kms) || undefined,
-          price: Number(parsed.informations.price) || undefined,
-          co2Emissions: Number(parsed.informations.co2Emissions) || undefined,
-          emissionsClass: Number(parsed.informations.emissionsClass) || undefined,
-          numberDoors: Number(parsed.informations.numberDoors) || undefined,
-          places: Number(parsed.informations.places) || undefined,
-          ptc: Number(parsed.informations.ptc) || undefined,
-          ptr: Number(parsed.informations.ptr) || undefined,
-          payload: Number(parsed.informations.payload) || undefined,
-          dimensions: {
-              length: Number(parsed.informations.dimensions.length) || undefined,
-              width: Number(parsed.informations.dimensions.width) || undefined,
-              height: Number(parsed.informations.dimensions.height) || undefined,
-              volume: Number(parsed.informations.dimensions.volume) || undefined,
-              wheelBase: Number(parsed.informations.dimensions.wheelBase) || undefined,
-          },
-          dateCirculation: parsed.informations.dateCirculation || undefined,
-          carBody: parsed.informations.carBody || undefined,
-          type: parsed.informations.type || undefined,
-          gearbox: parsed.informations.gearbox || undefined,
-          motorization: parsed.informations.motorization || undefined,
-          color: parsed.informations.color || undefined
+    ...parsed,
+    informations: {
+      ...parsed.informations,
+      horsePower: Number(parsed.informations.horsePower) || undefined,
+      year: Number(parsed.informations.year) || undefined,
+      kms: Number(parsed.informations.kms) || undefined,
+      price: Number(parsed.informations.price) || undefined,
+      co2Emissions: Number(parsed.informations.co2Emissions) || undefined,
+      emissionsClass: Number(parsed.informations.emissionsClass) || undefined,
+      numberDoors: Number(parsed.informations.numberDoors) || undefined,
+      places: Number(parsed.informations.places) || undefined,
+      ptc: Number(parsed.informations.ptc) || undefined,
+      ptr: Number(parsed.informations.ptr) || undefined,
+      payload: Number(parsed.informations.payload) || undefined,
+      dimensions: {
+        length: Number(parsed.informations.dimensions.length) || undefined,
+        width: Number(parsed.informations.dimensions.width) || undefined,
+        height: Number(parsed.informations.dimensions.height) || undefined,
+        volume: Number(parsed.informations.dimensions.volume) || undefined,
+        wheelBase:
+          Number(parsed.informations.dimensions.wheelBase) || undefined,
       },
+      dateCirculation: parsed.informations.dateCirculation || undefined,
+      carBody: parsed.informations.carBody || undefined,
+      type: parsed.informations.type || undefined,
+      gearbox: parsed.informations.gearbox || undefined,
+      motorization: parsed.informations.motorization || undefined,
+      color: parsed.informations.color || undefined,
+    },
   };
 }
 
@@ -79,25 +79,33 @@ router.post("/publish", upload.array("images"), async (req, res) => {
     const sanitized = sanitizeParsed(parsedBody);
 
     // Compression des images (async + parallèle)
-    const compressedImagePaths = [];
-
-    await Promise.all(
+    const compressedImagePaths = await Promise.all(
+      // Assigner le résultat ici
       req.files.map(async (file) => {
+        // La fonction map crée les promesses
         const originalPath = file.path;
         const ext = path.extname(originalPath);
-        const compressedPath = originalPath.replace(ext, `-compressed.webp`);
+        const compressedFilename = `${path.basename(
+          originalPath,
+          ext
+        )}-compressed.webp`;
+        const compressedPath = path.join(
+          path.dirname(originalPath),
+          compressedFilename
+        );
 
         await sharp(originalPath)
-          .resize(1200) // Redimensionne en largeur (proportionnel)
-          .webp({ quality: 80 }) // Compression format WebP
+          .resize({ width: 1200 }) // Utiliser {width: ...} pour être clair
+          .webp({ quality: 80 })
           .toFile(compressedPath);
 
-        // Supprime l'image originale (non bloquant)
         fs.unlink(originalPath, (err) => {
-          if (err) console.error("Erreur suppression image :", err);
+          // Suppression asynchrone
+          if (err) console.error(`Erreur suppression ${originalPath}:`, err);
         });
 
-        compressedImagePaths.push(`uploads/${path.basename(compressedPath)}`);
+        // Correction : RETOURNER la valeur que Promise.all doit collecter
+        return `uploads/${compressedFilename}`;
       })
     );
 
@@ -153,26 +161,35 @@ router.put("/modify/:id", upload.array("images"), async (req, res) => {
     }
 
     // 🔧 Compression des nouvelles images (parallèle)
-    const compressedImagePaths = [];
-
+    let newCompressedPaths = []; // Renommer pour clarté
     if (req.files && req.files.length > 0) {
-      await Promise.all(
+      // Correction : Récupérer le tableau retourné par Promise.all
+      newCompressedPaths = await Promise.all(
+        // Assigner le résultat ici
         req.files.map(async (file) => {
           const originalPath = file.path;
           const ext = path.extname(originalPath);
-          const compressedPath = originalPath.replace(ext, `-compressed.webp`);
+          const compressedFilename = `${path.basename(
+            originalPath,
+            ext
+          )}-compressed.webp`;
+          const compressedPath = path.join(
+            path.dirname(originalPath),
+            compressedFilename
+          );
 
           await sharp(originalPath)
             .resize({ width: 1200 })
             .webp({ quality: 75 })
             .toFile(compressedPath);
 
-          // Supprime l'image originale (non bloquant)
           fs.unlink(originalPath, (err) => {
-            if (err) console.error("Erreur suppression image originale :", err);
+            // Suppression asynchrone
+            if (err) console.error(`Erreur suppression ${originalPath}:`, err);
           });
 
-          compressedImagePaths.push(compressedPath);
+          // Correction : RETOURNER la valeur
+          return `uploads/${compressedFilename}`; // Soyons cohérent avec POST
         })
       );
     }
@@ -203,7 +220,9 @@ router.put("/modify/:id", upload.array("images"), async (req, res) => {
     });
   } catch (error) {
     console.error("Erreur PUT /announces/:id :", error);
-    return res.status(500).json({ message: "Erreur serveur", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "Erreur serveur", error: error.message });
   }
 });
 
