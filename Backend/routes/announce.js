@@ -199,7 +199,7 @@ router.put("/modify/:id", upload.array("images"), async (req, res) => {
       ? sanitized.images.filter((img) => typeof img === "string")
       : [];
 
-    const finalImages = [...existingImages, ...compressedImagePaths];
+    const finalImages = [...existingImages, ...newCompressedPaths];
 
     const updatedData = {
       ...sanitized,
