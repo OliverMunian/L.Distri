@@ -6,7 +6,6 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
-const pLimit = require('p-limit');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -78,30 +77,35 @@ router.post("/publish", upload.array("images"), async (req, res) => {
     // Parse et nettoie le corps de la requête
     const parsedBody = JSON.parse(req.body.data || "{}");
     const sanitized = sanitizeParsed(parsedBody);
-    const limit = pLimit(3)
 
     // Compression des images (async + parallèle)
     const compressedImagePaths = await Promise.all(
-      req.files.map(file => {
-        return limit(async () => {
-          const originalPath = file.path;
-          const ext = path.extname(originalPath);
-          const compressedFilename = `${path.basename(originalPath, ext)}-compressed.webp`;
-          const compressedPath = path.join(path.dirname(originalPath), compressedFilename);
+      // Assigner le résultat ici
+      req.files.map(async (file) => {
+        // La fonction map crée les promesses
+        const originalPath = file.path;
+        const ext = path.extname(originalPath);
+        const compressedFilename = `${path.basename(
+          originalPath,
+          ext
+        )}-compressed.webp`;
+        const compressedPath = path.join(
+          path.dirname(originalPath),
+          compressedFilename
+        );
 
-          console.log(`Processing ${compressedFilename}...`); 
-          await sharp(originalPath)
-            .resize({ width: 1200 })
-            .webp({ quality: 80 })
-            .toFile(compressedPath);
-          console.log(`Finished ${compressedFilename}.`); 
+        await sharp(originalPath)
+          .resize({ width: 1200 }) // Utiliser {width: ...} pour être clair
+          .webp({ quality: 80 })
+          .toFile(compressedPath);
 
-          fs.unlink(originalPath, (err) => {
-            if (err) console.error(`Erreur suppression ${originalPath}:`, err);
-          });
-
-          return `uploads/${compressedFilename}`;
+        fs.unlink(originalPath, (err) => {
+          // Suppression asynchrone
+          if (err) console.error(`Erreur suppression ${originalPath}:`, err);
         });
+
+        // Correction : RETOURNER la valeur que Promise.all doit collecter
+        return `uploads/${compressedFilename}`;
       })
     );
 
@@ -159,34 +163,36 @@ router.put("/modify/:id", upload.array("images"), async (req, res) => {
     // 🔧 Compression des nouvelles images (parallèle)
     let newCompressedPaths = []; // Renommer pour clarté
     if (req.files && req.files.length > 0) {
-      const limit = pLimit(3);
-
+      // Correction : Récupérer le tableau retourné par Promise.all
       newCompressedPaths = await Promise.all(
-          req.files.map(file => {
-              return limit(async () => {
-                  const originalPath = file.path;
-                  const ext = path.extname(originalPath);
-                  const compressedFilename = `${path.basename(originalPath, ext)}-compressed.webp`;
-                  const compressedPath = path.join(path.dirname(originalPath), compressedFilename);
+        // Assigner le résultat ici
+        req.files.map(async (file) => {
+          const originalPath = file.path;
+          const ext = path.extname(originalPath);
+          const compressedFilename = `${path.basename(
+            originalPath,
+            ext
+          )}-compressed.webp`;
+          const compressedPath = path.join(
+            path.dirname(originalPath),
+            compressedFilename
+          );
 
-                  console.log(`Processing ${compressedFilename} (modify)...`); // Log
-                  await sharp(originalPath)
-                      .resize({ width: 1200 })
-                      .webp({ quality: 75 })
-                      .toFile(compressedPath);
-                  console.log(`Finished ${compressedFilename} (modify).`); // Log
+          await sharp(originalPath)
+            .resize({ width: 1200 })
+            .webp({ quality: 75 })
+            .toFile(compressedPath);
 
-                  fs.unlink(originalPath, (err) => {
-                      if (err) console.error(`Erreur suppression ${originalPath}:`, err);
-                  });
+          fs.unlink(originalPath, (err) => {
+            // Suppression asynchrone
+            if (err) console.error(`Erreur suppression ${originalPath}:`, err);
+          });
 
-                  return `uploads/${compressedFilename}`;
-              });
-          })
+          // Correction : RETOURNER la valeur
+          return `uploads/${compressedFilename}`; // Soyons cohérent avec POST
+        })
       );
-      console.log("All new images processed (modify).");
-  }
-
+    }
 
     // 📸 Conserve les anciennes restantes
     const existingImages = Array.isArray(sanitized.images)
